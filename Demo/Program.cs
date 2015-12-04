@@ -1,5 +1,7 @@
 ﻿using io.nulldata.Baidu.Yingyan;
+using io.nulldata.Baidu.Yingyan.Entity;
 using io.nulldata.Baidu.Yingyan.Track;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,18 @@ namespace io.nulldata.Baidu.Yingyan.Demo
     {
         static void Main(string[] args)
         {
+            var time = new Fence.TimeRang();
+            var js = new io.nulldata.Baidu.Yingyan.Fence.FenceItem()
+            {
+                coord_type = CoordType.Baidu,
+                monitored_persons = new List<string>(new string[] { "111", "222", "222" }),
+                valid_times = new List<Fence.TimeRang>(new Fence.TimeRang[] { new Fence.TimeRang() { start = new Fence.TimeOfDay() { hour = 10, minute = 1 } } }),
+                valid_date = DateTime.Now,
+                valid_days = new List<int>(new int[] { 1, 2, 3, 4 }),
+                center = new LocationPoint() { latitude = 10, longitude = 100 }
+            };
+            var str = JsonConvert.SerializeObject(js);
+            js = JsonConvert.DeserializeObject<io.nulldata.Baidu.Yingyan.Fence.FenceItem>(str);
             var ak = "jmH6fA2QzDWfyPvkKslL741L";
             var service_id = "105686";
             YingyanApi api = new YingyanApi(ak, service_id);

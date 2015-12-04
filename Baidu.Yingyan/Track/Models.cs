@@ -7,16 +7,8 @@ using System.Threading.Tasks;
 
 namespace io.nulldata.Baidu.Yingyan.Track
 {
-    public class TrackPoint
+    public class TrackPoint: LocationPoint
     {
-        /// <summary>
-        /// 纬度
-        /// </summary>
-        public double latitude { get; set; }
-        /// <summary>
-        /// 经度
-        /// </summary>
-        public double longitude { get; set; }
         /// <summary>
         /// 坐标类型
         /// </summary>

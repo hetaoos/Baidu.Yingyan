@@ -1,4 +1,5 @@
 ﻿using io.nulldata.Baidu.Yingyan.Entity;
+using io.nulldata.Baidu.Yingyan.Fence;
 using io.nulldata.Baidu.Yingyan.Track;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace io.nulldata.Baidu.Yingyan
 
         public TrackApi track { get; private set; }
 
+        public FenceApi fence { get; private set; }
+
         public const string url = "http://api.map.baidu.com/trace/v2/";
 
         public YingyanApi(string ak, string service_id)
@@ -28,6 +31,7 @@ namespace io.nulldata.Baidu.Yingyan
             this.service_id = service_id;
             entity = new EntityApi(this);
             track = new TrackApi(this);
+            fence = new FenceApi(this);
         }
         /// <summary>
         /// POST 操作

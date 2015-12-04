@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using io.nulldata.Baidu.Yingyan.Converters;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,11 +47,13 @@ namespace io.nulldata.Baidu.Yingyan.Entity
         /// <summary>
         /// 该entity最新定位时间
         /// </summary>
-        public int loc_time { get; set; }
+        [JsonConverter(typeof(UnixTicksConverter))]
+        public DateTime loc_time { get; set; }
         /// <summary>
         /// 百度加密坐标
         /// </summary>
-        public double[] location { get; set; }
+        [JsonConverter(typeof(LocationPointConverter))]
+        public LocationPoint location { get; set; }
         /// <summary>
         /// 坐标类型，=3
         /// </summary>
