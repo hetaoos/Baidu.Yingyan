@@ -10,7 +10,7 @@ namespace io.nulldata.Baidu.Yingyan.Converters
     /// <summary>
     /// 数组存储的经纬度和 LocationPoint 相互转换
     /// </summary>
-    public class LocationPointConverter : JsonConverter
+    public class LocationPointToStringConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
@@ -19,9 +19,9 @@ namespace io.nulldata.Baidu.Yingyan.Converters
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var t = serializer.Deserialize<double[]>(reader);
+            var t = serializer.Deserialize<string>(reader).Split(',');
             if (t != null && t.Length >= 2)
-                return new LocationPoint() { longitude = t[0], latitude = t[1], };
+                return new LocationPoint() { longitude = double.Parse(t[0]), latitude = double.Parse(t[1]), };
             return null;
         }
 
@@ -31,7 +31,7 @@ namespace io.nulldata.Baidu.Yingyan.Converters
             {
                 var v = value as LocationPoint;
                 double[] p = new double[] { v.longitude, v.latitude };
-                serializer.Serialize(writer, p);
+                serializer.Serialize(writer, string.Join(",", p));
             }
         }
     }

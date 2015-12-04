@@ -8,8 +8,17 @@ using System.Threading.Tasks;
 
 namespace io.nulldata.Baidu.Yingyan.Fence
 {
-    public class FenceItem
+    /// <summary>
+    /// 围栏的基本信息
+    /// </summary>
+    public abstract class FenceItemBase
     {
+        /// <summary>
+        /// 围栏ID，作为其唯一标识
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? fence_id { get; set; }
+
         /// <summary>
         /// 围栏名称
         /// </summary>
@@ -62,8 +71,7 @@ namespace io.nulldata.Baidu.Yingyan.Fence
         /// <summary>
         /// 围栏圆心经纬度,shape为1时必选。格式为：经度,纬度。示例：116.4321,38.76623
         /// </summary>
-        [JsonConverter(typeof(LocationPointConverter))]
-        public LocationPoint center { get; set; }
+        public abstract LocationPoint center { get; set; }
         /// <summary>
         /// 围栏半径,当shape=1时必选。单位：米，取值范围(0,5000]
         /// </summary>
@@ -73,6 +81,46 @@ namespace io.nulldata.Baidu.Yingyan.Fence
         /// 围栏报警条件,可选。1：进入时触发提醒 2：离开时触发提醒 3：进入离开均触发提醒。默认值为3
         /// </summary>
         public FenceAlarmCondition alarm_condition { get; set; }
+
+    }
+
+    /// <summary>
+    /// 作为参数提交
+    /// </summary>
+    public class FenceItemAsArgs : FenceItemBase
+    {
+        /// <summary>
+        /// 围栏圆心经纬度,shape为1时必选。格式为：经度,纬度。示例：116.4321,38.76623
+        /// </summary>
+        [JsonConverter(typeof(LocationPointToStringConverter))]
+        public override LocationPoint center { get; set; }
+
+        public Dictionary<string, string> ToDictionary(bool removeEmptyValue = false)
+        {
+            var str = JsonConvert.SerializeObject(this);
+            var dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(str);
+            if (removeEmptyValue)
+                dic.Where(o => o.Value == null).Select(o => o.Key).ToList()
+                      .ForEach(o => dic.Remove(o));
+            return dic;
+
+        }
+    }
+    /// <summary>
+    /// 作为返回结果
+    /// </summary>
+    public class FenceItemAsResult : FenceItemBase
+    {
+        /// <summary>
+        /// 围栏圆心经纬度,shape为1时必选。格式为：经度,纬度。示例：116.4321,38.76623
+        /// </summary>
+        public override LocationPoint center { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime? create_time { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime? modify_time { get; set; }
     }
 
     /// <summary>

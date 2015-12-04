@@ -15,7 +15,7 @@ namespace io.nulldata.Baidu.Yingyan.Demo
         static void Main(string[] args)
         {
             var time = new Fence.TimeRang();
-            var js = new io.nulldata.Baidu.Yingyan.Fence.FenceItem()
+            var js = new io.nulldata.Baidu.Yingyan.Fence.FenceItemAsResult()
             {
                 coord_type = CoordType.Baidu,
                 monitored_persons = new List<string>(new string[] { "111", "222", "222" }),
@@ -25,7 +25,8 @@ namespace io.nulldata.Baidu.Yingyan.Demo
                 center = new LocationPoint() { latitude = 10, longitude = 100 }
             };
             var str = JsonConvert.SerializeObject(js);
-            js = JsonConvert.DeserializeObject<io.nulldata.Baidu.Yingyan.Fence.FenceItem>(str);
+            js = JsonConvert.DeserializeObject<io.nulldata.Baidu.Yingyan.Fence.FenceItemAsResult>(str);
+            var dic2 = JsonConvert.DeserializeObject<Dictionary<string, string>>(str);
             var ak = "jmH6fA2QzDWfyPvkKslL741L";
             var service_id = "105686";
             YingyanApi api = new YingyanApi(ak, service_id);

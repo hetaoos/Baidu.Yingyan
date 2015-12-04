@@ -52,7 +52,7 @@ namespace io.nulldata.Baidu.Yingyan.Entity
         /// <summary>
         /// 百度加密坐标
         /// </summary>
-        [JsonConverter(typeof(LocationPointConverter))]
+        [JsonConverter(typeof(LocationPointToArrayConverter))]
         public LocationPoint location { get; set; }
         /// <summary>
         /// 坐标类型，=3
