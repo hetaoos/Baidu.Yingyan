@@ -38,7 +38,7 @@ namespace io.nulldata.Baidu.Yingyan.Entity
 
 
         [JsonExtensionData]
-        private IDictionary<string, object> columns { get; set; }
+        public IDictionary<string, object> columns { get; set; }
     }
 
     public class EntityRealtimePoint
@@ -57,7 +57,7 @@ namespace io.nulldata.Baidu.Yingyan.Entity
         public CoordType coord_type { get; set; }
 
         [JsonExtensionData]
-        private IDictionary<string, object> columns { get; set; }
+        public IDictionary<string, object> columns { get; set; }
     }
 
 

@@ -8,6 +8,7 @@ using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace io.nulldata.Baidu.Yingyan.Track
 {
@@ -23,7 +24,7 @@ namespace io.nulldata.Baidu.Yingyan.Track
         /// <summary>
         /// 为一个track添加最新轨迹点。
         /// </summary>
-        /// <param name="entity_name"entity唯一标识</param>
+        /// <param name="entity_name">entity唯一标识</param>
         /// <param name="columns">开发者自定义字段(可选)</param>
         /// <param name="point">坐标</param>
         /// <returns></returns>
@@ -41,6 +42,58 @@ namespace io.nulldata.Baidu.Yingyan.Track
             return await YingyanApi.post<CommonResult>(url, "addpoint", content, YingyanApi.getDefaultHttpError<CommonResult>());
 
         }
+
+        /// <summary>
+        /// 对于一个track批量上传轨迹点。按照时间顺序保留最后一个点作为实时点，过程耗时等信息。
+        /// </summary>
+        /// <param name="entity_name">entity唯一标识</param>
+        /// <param name="points">坐标</param>
+        /// <returns></returns>
+        public async Task<CommonResult> addpoints(string entity_name, params TrackPoint[] points)
+        {
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = url;
+
+                var args = framework.getArgs();
+                args["entity_name"] = entity_name;
+                var formData = new FormUrlEncodedContent(args);
+
+                var content = new MultipartFormDataContent();
+                content.Add(new StringContent(framework.ak), "ak");
+                content.Add(formData);
+
+                var data = string.Join(Environment.NewLine,
+                    new string[] { "longitude,latitude,loc_time,coord_type" }
+                    .Union(points.Select(o => o.ToString())));
+
+                var fileContent = new ByteArrayContent(Encoding.UTF8.GetBytes(data));
+                var header = new ContentDispositionHeaderValue("form-data");
+
+                foreach (var parameter in args)
+                {
+                    header.Parameters.Add(new NameValueHeaderValue(parameter.Key, parameter.Value.ToString()));
+                }
+                header.Name = "point_list";
+                header.FileName = "point_list.csv";
+                header.FileNameStar = "point_list.csv";
+
+                fileContent.Headers.ContentDisposition = header;  
+                content.Add(fileContent);
+      
+
+                var response = await client.PostAsync("addpoints", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    var t = await response.Content.JsonReadAsAsync<CommonResult>();
+                    return t;
+                }
+                return null;
+
+            }
+        }
+
 
         /// <summary>
         /// 通过service _id和entity_name查找本entity历史轨迹点的具体信息，包括经纬度，时间，其他用户自定义信息等。

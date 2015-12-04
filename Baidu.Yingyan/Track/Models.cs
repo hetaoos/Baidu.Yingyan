@@ -25,6 +25,11 @@ namespace io.nulldata.Baidu.Yingyan.Track
         /// 轨迹点采集的GPS时间
         /// </summary>
         public DateTime loc_time { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0},{1},{2},{3}", longitude, latitude, loc_time.ToUtcTicks(), (int)coord_type);
+        }
     }
 
 
@@ -47,7 +52,7 @@ namespace io.nulldata.Baidu.Yingyan.Track
         public int? direction { get; set; }
 
         [JsonExtensionData]
-        private IDictionary<string, object> columns { get; set; }
+        public IDictionary<string, object> columns { get; set; }
     }
 
     public class TrackHistorySimpleResult : CommonResult

@@ -21,14 +21,13 @@ namespace io.nulldata.Baidu.Yingyan.Demo
             //api.entity.add("aaaa", dic).GetAwaiter().GetResult();
             //var t = api.entity.addcolumn("hello", "col1", "col1", true).GetAwaiter().GetResult();
             //var t = api.entity.list_column().GetAwaiter().GetResult();
-            //var t = api.track.addpoint("hello", new TrackPoint()
-            //{
-            //    latitude = 11.121,
-            //    longitude = 22.222,
-            //    coord_type = coord_type.GPS,
-            //    loc_time = DateTime.Now,
-            //}).Result;
-
+            var t = api.track.addpoints("hello", new TrackPoint()
+            {
+                latitude = 11.121,
+                longitude = 22.222,
+                coord_type = CoordType.GPS,
+                loc_time = DateTime.Now,
+            }).Result;
 
             var t1 = api.track.add_column("col1", "测试col", TrackColumnType.String).Result;
             var t22 = api.track.list_column().Result;
