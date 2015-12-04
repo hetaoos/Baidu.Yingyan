@@ -22,177 +22,116 @@ namespace io.nulldata.Baidu.Yingyan.Fence
             this.framework = framework;
         }
         /// <summary>
-        /// 为一个track添加最新轨迹点。
+        /// 创建一个新的围栏实体，返回的是本围栏的fence_id，一个地理围栏实体的fence_id加上其所属轨迹服务的service _id，可以用来查找该围栏实体本身的详细信息以及该围栏的状态等。
         /// </summary>
         /// <param name="entity_name">entity唯一标识</param>
-        /// <param name="columns">开发者自定义字段(可选)</param>
-        /// <param name="point">坐标</param>
+        /// <param name="fence">围栏对象</param>
         /// <returns></returns>
-        public async Task<CommonResult> addpoint(string entity_name, TrackPoint point, Dictionary<string, string> columns = null)
+        public async Task<FenceCreateResult> create(FenceItemAsArgs fence)
         {
-            var args = framework.getArgs(columns);
-            args["entity_name"] = entity_name;
-            args["latitude"] = point.latitude.ToString();
-            args["longitude"] = point.longitude.ToString();
-            args["coord_type"] = ((int)point.coord_type).ToString();
-            args["loc_time"] = point.loc_time.ToUtcTicks().ToString();
-
+            var args = framework.getArgs(fence.ToDictionary());
             var content = new FormUrlEncodedContent(args);
-
-            return await YingyanApi.post<CommonResult>(url, "addpoint", content, YingyanApi.getDefaultHttpError<CommonResult>());
-
-        }
-
-        /// <summary>
-        /// 对于一个track批量上传轨迹点。按照时间顺序保留最后一个点作为实时点，过程耗时等信息。
-        /// </summary>
-        /// <param name="entity_name">entity唯一标识</param>
-        /// <param name="points">坐标</param>
-        /// <returns></returns>
-        public async Task<CommonResult> addpoints(string entity_name, params TrackPoint[] points)
-        {
-
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = url;
-
-                var args = framework.getArgs();
-                args["entity_name"] = entity_name;
-                var formData = new FormUrlEncodedContent(args);
-
-                var content = new MultipartFormDataContent();
-                content.Add(new StringContent(framework.ak), "ak");
-                content.Add(formData);
-
-                var data = string.Join(Environment.NewLine,
-                    new string[] { "longitude,latitude,loc_time,coord_type" }
-                    .Union(points.Select(o => o.ToString())));
-
-                var fileContent = new ByteArrayContent(Encoding.UTF8.GetBytes(data));
-                var header = new ContentDispositionHeaderValue("form-data");
-
-                foreach (var parameter in args)
-                {
-                    header.Parameters.Add(new NameValueHeaderValue(parameter.Key, parameter.Value.ToString()));
-                }
-                header.Name = "point_list";
-                header.FileName = "point_list.csv";
-                header.FileNameStar = "point_list.csv";
-
-                fileContent.Headers.ContentDisposition = header;  
-                content.Add(fileContent);
-      
-
-                var response = await client.PostAsync("addpoints", content);
-                if (response.IsSuccessStatusCode)
-                {
-                    var t = await response.Content.JsonReadAsAsync<CommonResult>();
-                    return t;
-                }
-                return null;
-
-            }
-        }
-
-
-        /// <summary>
-        /// 通过service _id和entity_name查找本entity历史轨迹点的具体信息，包括经纬度，时间，其他用户自定义信息等。
-        /// </summary>
-        /// <param name="entity_name">必选</param>
-        /// <param name="page_index">可选，默认值为1。page_index与page_size一起计算从第几条结果返回，代表返回第几页。</param>
-        /// <param name="page_size">可选，默认值为100。page_size与page_index一起计算从第几条结果返回，代表返回结果中每页有几条记录</param>
-        /// <returns></returns>
-        public async Task<TrackHistoryResult> gethistory(string entity_name, DateTime start_time, DateTime end_time, bool is_processed = false, int page_index = 1, int page_size = 100)
-        {
-            return await gethistory_base(entity_name, start_time, end_time, false, is_processed, page_index, page_size) as TrackHistoryResult;
-        }
-
-        /// <summary>
-        /// 通过service _id和entity_name查找本entity历史轨迹点的具体信息，包括经纬度，时间，其他用户自定义信息等。
-        /// </summary>
-        /// <param name="entity_name">必选</param>
-        /// <param name="page_index">可选，默认值为1。page_index与page_size一起计算从第几条结果返回，代表返回第几页。</param>
-        /// <param name="page_size">可选，默认值为100。page_size与page_index一起计算从第几条结果返回，代表返回结果中每页有几条记录</param>
-        /// <returns></returns>
-        public async Task<TrackHistorySimpleResult> gethistory_simple(string entity_name, DateTime start_time, DateTime end_time, bool is_processed = false, int page_index = 1, int page_size = 100)
-        {
-            return await gethistory_base(entity_name, start_time, end_time, true, is_processed, page_index, page_size) as TrackHistorySimpleResult;
-        }
-        /// <summary>
-        /// 通过service _id和entity_name查找本entity历史轨迹点的具体信息，包括经纬度，时间，其他用户自定义信息等。
-        /// </summary>
-        /// <param name="entity_name">必选</param>
-        /// <param name="page_index">可选，默认值为1。page_index与page_size一起计算从第几条结果返回，代表返回第几页。</param>
-        /// <param name="page_size">可选，默认值为100。page_size与page_index一起计算从第几条结果返回，代表返回结果中每页有几条记录</param>
-        /// <returns></returns>
-        internal async Task<CommonResult> gethistory_base(string entity_name, DateTime start_time, DateTime end_time, bool simple_return = false, bool is_processed = false, int page_index = 1, int page_size = 100)
-        {
-            var nv = framework.getNameValueCollection();
-            nv.Add("entity_name", entity_name);
-
-            nv.Add("start_time", start_time.ToUtcTicks().ToString());
-            nv.Add("end_time", end_time.ToUtcTicks().ToString());
-
-            nv.Add("simple_return", simple_return ? "1" : "0");
-            nv.Add("is_processed", is_processed ? "1" : "0");
-
-            nv.Add("page_index", page_index.ToString());
-            nv.Add("page_size", page_size.ToString());
-            if (simple_return)
-                return await YingyanApi.get<TrackHistorySimpleResult>(url, "gethistory", nv, YingyanApi.getDefaultHttpError<TrackHistorySimpleResult>());
-            else
-                return await YingyanApi.get<TrackHistoryResult>(url, "gethistory", nv, YingyanApi.getDefaultHttpError<TrackHistoryResult>());
+            return await YingyanApi.post<FenceCreateResult>(url, "create", content, YingyanApi.getDefaultHttpError<FenceCreateResult>());
 
         }
 
         /// <summary>
-        /// 为entity添加一个属性字段，字段只能为字符类型，支持最大长度为128。
+        /// 根据fence_id删除围栏
         /// </summary>
-        /// <param name="column_key">必选，最多创建5个属性字段，同一个service下entity的column_key不能重复。</param>
-        /// <param name="column_desc">字段描述</param>
-        /// <param name="column_type">可选。必选，枚举值1:Int64, 2:double, 3:string（字符串最大支持2048字符）</param>
+        /// <param name="fence_id">地理围栏的唯一标识</param>
         /// <returns></returns>
-        public async Task<CommonResult> add_column(string column_key, string column_desc = null, TrackColumnType column_type = TrackColumnType.String)
+        public async Task<CommonResult> delete(int fence_id)
         {
             var args = framework.getArgs();
-            args["column_key"] = column_key;
-            if (string.IsNullOrEmpty(column_desc) == false)
-                args["column_desc"] = column_desc;
-            args["column_type"] = ((int)column_type).ToString();
+            args["fence_id"] = fence_id.ToString();
             var content = new FormUrlEncodedContent(args);
-
-            return await YingyanApi.post<CommonResult>(url, "addcolumn", content, YingyanApi.getDefaultHttpError<CommonResult>());
+            return await YingyanApi.post<CommonResult>(url, "delete", content, YingyanApi.getDefaultHttpError<CommonResult>());
 
         }
 
         /// <summary>
-        /// 为entity添加一个属性字段，字段只能为字符类型，支持最大长度为128。
+        /// 更新一个围栏实体的详细信息。围栏属性信息中各个可选字段如果不填，则不更新相关属性值。
         /// </summary>
-        /// <param name="entity_name">entity名称，作为其唯一标识。</param>
-        /// <param name="column_key">必选，最多创建5个属性字段，同一个service下entity的column_key不能重复。</param>
+        /// <param name="fence">围栏对象</param>
         /// <returns></returns>
-        public async Task<CommonResult> delete_column(string entity_name, string column_key)
+        public async Task<CommonResult> update(FenceItemAsArgs fence)
         {
-            var args = framework.getArgs();
-            args["entity_name"] = entity_name;
-            args["column_key"] = column_key;
+            var args = framework.getArgs(fence.ToDictionary());
             var content = new FormUrlEncodedContent(args);
-
-            return await YingyanApi.post<CommonResult>(url, "deletecolumn", content, YingyanApi.getDefaultHttpError<CommonResult>());
+            return await YingyanApi.post<CommonResult>(url, "update", content, YingyanApi.getDefaultHttpError<CommonResult>());
 
         }
 
+
         /// <summary>
-        /// 列出entity所有自定义属性字段。
+        /// 根据fence_id查询围栏
         /// </summary>
+        /// <param name="creator">creator和fence_ids二者至少选一个</param>
+        /// <param name="fence_ids">creator和fence_ids二者至少选一个</param>
         /// <returns></returns>
-        public async Task<TrackColumnListResult> list_column()
+        public async Task<FenceListResult> list(string creator, List<int> fence_ids)
         {
             var nv = framework.getNameValueCollection();
-            return await YingyanApi.get<TrackColumnListResult>(url, "listcolumn", nv, YingyanApi.getDefaultHttpError<TrackColumnListResult>());
+            if (string.IsNullOrEmpty(creator) == false)
+                nv.Add("creator", creator);
+            if (fence_ids != null && fence_ids.Count > 0)
+                nv.Add("fence_ids", string.Join(",", fence_ids.Select(o => o.ToString()).ToArray()));
 
+            return await YingyanApi.get<FenceListResult>(url, "list", nv, YingyanApi.getDefaultHttpError<FenceListResult>());
+        }
+        /// <summary>
+        /// 根据fence_id查询围栏内监控对象是在围栏内还是在围栏外
+        /// </summary>
+        /// <param name="fence_id">地理围栏的唯一标识</param>
+        /// <param name="monitored_persons">围栏监控对象列表,多个对象用逗号分隔。表示查询那些监控对象的状态。不填时，查询所有监控对象的状态</param>
+        /// <returns></returns>
+        public async Task<FenceStatusResult> querystatus(int fence_id, List<string> monitored_persons)
+        {
+            var nv = framework.getNameValueCollection();
 
+            nv.Add("fence_id", fence_id.ToString());
+            if (monitored_persons != null && monitored_persons.Count > 0)
+                nv.Add("monitored_persons", string.Join(",", monitored_persons));
+
+            return await YingyanApi.get<FenceStatusResult>(url, "querystatus", nv, YingyanApi.getDefaultHttpError<FenceStatusResult>());
         }
 
+        /// <summary>
+        /// 查询围栏的监控对象的历时报警信息。只提供7天以内（包含7天）的数据查询，7天以外的数据不提供查询服务。
+        /// </summary>
+        /// <param name="fence_id">地理围栏的唯一标识</param>
+        /// <param name="monitored_persons">围栏监控对象列表,多个对象用逗号分隔。表示查询那些监控对象的状态。不填时，查询所有监控对象的状态</param>
+        /// <returns></returns>
+        public async Task<FenceStatusResult> histroryalarm(int fence_id, List<string> monitored_persons, DateTime? begin_time = null, DateTime? end_time = null)
+        {
+            var nv = framework.getNameValueCollection();
+
+            nv.Add("fence_id", fence_id.ToString());
+            if (monitored_persons != null && monitored_persons.Count > 0)
+                nv.Add("monitored_persons", string.Join(",", monitored_persons));
+            if (begin_time.HasValue)
+                nv.Add("end_time", begin_time.Value.ToUtcTicks().ToString());
+            if (begin_time.HasValue)
+                nv.Add("end_time", begin_time.Value.ToUtcTicks().ToString());
+            return await YingyanApi.get<FenceStatusResult>(url, "histroryalarm", nv, YingyanApi.getDefaultHttpError<FenceStatusResult>());
+        }
+
+        /// <summary>
+        /// 围栏观察者在设定时间内不再接收报警
+        /// </summary>
+        /// <param name="fence_id">地理围栏的唯一标识</param>
+        /// <param name="observer">围栏观察者</param>
+        ///<param name="time">暂停时间,必选。表示在此时间之前不再提醒</param>
+        /// <returns></returns>
+        public async Task<CommonResult> delayalarm(int fence_id, string observer, DateTime time )
+        {
+            var args = framework.getArgs();
+            args.Add("fence_id", fence_id.ToString());
+            args.Add("observer", observer);
+            args.Add("time", time.ToUtcTicks().ToString());
+            var content = new FormUrlEncodedContent(args);
+            return await YingyanApi.post<CommonResult>(url, "delayalarm", content, YingyanApi.getDefaultHttpError<CommonResult>());
+
+        }
     }
 }

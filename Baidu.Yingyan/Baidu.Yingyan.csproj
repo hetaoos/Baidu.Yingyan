@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="CommonResult.cs" />
     <Compile Include="Converters\LocationPointToStringConverter.cs" />
+    <Compile Include="Converters\TimeOfDayConverter.cs" />
     <Compile Include="Converters\TimeRangConverter.cs" />
     <Compile Include="Converters\ArrayConverter.cs" />
     <Compile Include="Converters\SimpleDateConverter.cs" />

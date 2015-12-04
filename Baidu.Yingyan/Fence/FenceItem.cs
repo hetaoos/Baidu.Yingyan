@@ -34,18 +34,15 @@ namespace io.nulldata.Baidu.Yingyan.Fence
         /// <summary>
         /// 监控对象列表,必选，被监控者的entity_name，使用英文逗号”,”分割，至少一个，最多五个。
         /// </summary>
-        [JsonConverter(typeof(ArrayConverter<string>))]
-        public List<string> monitored_persons { get; set; }
+        public abstract List<string> monitored_persons { get; set; }
         /// <summary>
         /// 观察者列表,必选，观察者的entity_name，使用英文逗号”,”分割，至少一个，最多五个。
         /// </summary>
-        [JsonConverter(typeof(ArrayConverter<string>))]
-        public List<string> observers { get; set; }
+        public abstract List<string> observers { get; set; }
         /// <summary>
         /// 围栏生效时间列表,必选，一天中的几点几分到 几点几分生效。至少含有一段生效时间，多个时间段使用分号”;”分隔。比如：“0820,0930;1030,1130”
         /// </summary>
-        [JsonConverter(typeof(TimeRangConverter))]
-        public List<TimeRang> valid_times { get; set; }
+        public abstract List<TimeRang> valid_times { get; set; }
         /// <summary>
         /// 围栏生效周期,必选，标识valid_times是否周期性生效，可以使用如下数值：1：不重复 2：工作日循环 3：周末循环 4：每天循环 5：自定义 当为5时，需要定义valid_days，标识在周几生效。
         /// </summary>
@@ -90,6 +87,22 @@ namespace io.nulldata.Baidu.Yingyan.Fence
     public class FenceItemAsArgs : FenceItemBase
     {
         /// <summary>
+        /// 监控对象列表,必选，被监控者的entity_name，使用英文逗号”,”分割，至少一个，最多五个。
+        /// </summary>
+        [JsonConverter(typeof(ArrayConverter<string>))]
+        public override List<string> monitored_persons { get; set; }
+        /// <summary>
+        /// 观察者列表,必选，观察者的entity_name，使用英文逗号”,”分割，至少一个，最多五个。
+        /// </summary>
+        [JsonConverter(typeof(ArrayConverter<string>))]
+        public override  List<string> observers { get; set; }
+        /// <summary>
+        /// 围栏生效时间列表,必选，一天中的几点几分到 几点几分生效。至少含有一段生效时间，多个时间段使用分号”;”分隔。比如：“0820,0930;1030,1130”
+        /// </summary>
+        [JsonConverter(typeof(TimeRangConverter))]
+        public override List<TimeRang> valid_times { get; set; }
+
+        /// <summary>
         /// 围栏圆心经纬度,shape为1时必选。格式为：经度,纬度。示例：116.4321,38.76623
         /// </summary>
         [JsonConverter(typeof(LocationPointToStringConverter))]
@@ -111,6 +124,19 @@ namespace io.nulldata.Baidu.Yingyan.Fence
     /// </summary>
     public class FenceItemAsResult : FenceItemBase
     {
+        /// <summary>
+        /// 监控对象列表,必选，被监控者的entity_name，使用英文逗号”,”分割，至少一个，最多五个。
+        /// </summary>
+        public override List<string> monitored_persons { get; set; }
+        /// <summary>
+        /// 观察者列表,必选，观察者的entity_name，使用英文逗号”,”分割，至少一个，最多五个。
+        /// </summary>
+        public override List<string> observers { get; set; }
+        /// <summary>
+        /// 围栏生效时间列表,必选，一天中的几点几分到 几点几分生效。至少含有一段生效时间，多个时间段使用分号”;”分隔。比如：“0820,0930;1030,1130”
+        /// </summary>
+        public override List<TimeRang> valid_times { get; set; }
+
         /// <summary>
         /// 围栏圆心经纬度,shape为1时必选。格式为：经度,纬度。示例：116.4321,38.76623
         /// </summary>
@@ -183,13 +209,18 @@ namespace io.nulldata.Baidu.Yingyan.Fence
     }
     public class TimeRang
     {
-        public TimeOfDay start { get; set; }
-
-        public TimeOfDay end { get; set; }
+        /// <summary>
+        /// 开始时间
+        /// </summary>
+        public TimeOfDay begin_time { get; set; }
+        /// <summary>
+        /// 结束时间
+        /// </summary>
+        public TimeOfDay end_time { get; set; }
 
         public override string ToString()
         {
-            return string.Format("{0},{1}", start == null ? "0000" : start.ToString(), end == null ? "0000" : end.ToString());
+            return string.Format("{0},{1}", begin_time == null ? "0000" : begin_time.ToString(), end_time == null ? "0000" : end_time.ToString());
         }
         public TimeRang()
         { }
@@ -202,11 +233,11 @@ namespace io.nulldata.Baidu.Yingyan.Fence
         public void Parse(string s)
         {
             var arr = s.Split(',');
-            start = TimeOfDay.Parse(arr[0]);
-            end = TimeOfDay.Parse(arr[1]);
+            begin_time = TimeOfDay.Parse(arr[0]);
+            end_time = TimeOfDay.Parse(arr[1]);
         }
     }
-
+    [JsonConverter(typeof(TimeOfDayConverter))]
     public class TimeOfDay
     {
         /// <summary>

@@ -19,7 +19,7 @@ namespace io.nulldata.Baidu.Yingyan.Demo
             {
                 coord_type = CoordType.Baidu,
                 monitored_persons = new List<string>(new string[] { "111", "222", "222" }),
-                valid_times = new List<Fence.TimeRang>(new Fence.TimeRang[] { new Fence.TimeRang() { start = new Fence.TimeOfDay() { hour = 10, minute = 1 } } }),
+                valid_times = new List<Fence.TimeRang>(new Fence.TimeRang[] { new Fence.TimeRang() { begin_time = new Fence.TimeOfDay() { hour = 10, minute = 1 } } }),
                 valid_date = DateTime.Now,
                 valid_days = new List<int>(new int[] { 1, 2, 3, 4 }),
                 center = new LocationPoint() { latitude = 10, longitude = 100 }
