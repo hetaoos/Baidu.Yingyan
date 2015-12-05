@@ -136,7 +136,7 @@ namespace io.nulldata.Baidu.Yingyan.Entity
             if (string.IsNullOrEmpty(column_desc) == false)
                 args["column_desc"] = column_desc;
             if (is_search.HasValue)
-                args["is_search"] = is_search.HasValue ? "1" : "0";
+                args["is_search"] = is_search.Value ? "1" : "0";
             var content = new FormUrlEncodedContent(args);
 
             return await YingyanApi.post<CommonResult>(url, "addcolumn", content, YingyanApi.getDefaultHttpError<CommonResult>());
