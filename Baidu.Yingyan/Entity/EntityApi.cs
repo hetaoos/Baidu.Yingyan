@@ -146,13 +146,11 @@ namespace io.nulldata.Baidu.Yingyan.Entity
         /// <summary>
         /// 为entity添加一个属性字段，字段只能为字符类型，支持最大长度为128。
         /// </summary>
-        /// <param name="entity_name">entity名称，作为其唯一标识。</param>
         /// <param name="column_key">必选，最多创建5个属性字段，同一个service下entity的column_key不能重复。</param>
         /// <returns></returns>
-        public async Task<CommonResult> delete_column(string entity_name, string column_key)
+        public async Task<CommonResult> delete_column(string column_key)
         {
             var args = framework.getArgs();
-            args["entity_name"] = entity_name;
             args["column_key"] = column_key;
             var content = new FormUrlEncodedContent(args);
 
