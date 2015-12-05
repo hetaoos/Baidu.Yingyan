@@ -18,16 +18,16 @@ namespace io.nulldata.Baidu.Yingyan.Fence
     public class FenceStatusResult : CommonResult
     {
         public int size { get; set; }
-        public List<monitored_person_status> monitored_person_statuses { get; set; }
+        public List<FenceMonitoredPersonStatus> monitored_person_statuses { get; set; }
     }
 
-    public class monitored_person_status
+    public class FenceMonitoredPersonStatus
     {
         public string monitored_person { get; set; }
-        public monitored_status monitored_status { get; set; }
+        public FenceMonitoredStatus monitored_status { get; set; }
     }
 
-    public enum monitored_status
+    public enum FenceMonitoredStatus
     {
         Unknown = 0,
         In,
@@ -37,20 +37,30 @@ namespace io.nulldata.Baidu.Yingyan.Fence
     public class FenceHistoryAlarmResult : CommonResult
     {
         public int size { get; set; }
-        public List<monitored_person_alarm> monitored_person_alarms { get; set; }
+        public List<FenceMonitoredPersonAlarm> monitored_person_alarms { get; set; }
     }
 
-    public class monitored_person_alarm
+    public class FenceMonitoredPersonAlarm
     {
         public string monitored_person { get; set; }
         public int alarm_size { get; set; }
-        public List<alarmItem> alarms { get; set; }
+        public List<FenceAlarmItem> alarms { get; set; }
     }
 
-    public class alarmItem
+    public class FenceAlarmItem
     {
-        public monitored_status action { get; set; }
+        public FenceMonitoredStatus action { get; set; }
         [JsonConverter(typeof(UnixTicksConverter))]
         public DateTime time { get; set; }
+    }
+
+    /// <summary>
+    /// 围栏列表
+    /// </summary>
+    public class FenceListResult : CommonResult
+    {
+        public int size { get; set; }
+
+        public List<FenceItemAsResult> fences { get; set; }
     }
 }

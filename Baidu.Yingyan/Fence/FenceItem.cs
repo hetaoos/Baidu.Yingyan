@@ -79,6 +79,31 @@ namespace io.nulldata.Baidu.Yingyan.Fence
         /// </summary>
         public FenceAlarmCondition alarm_condition { get; set; }
 
+        public T CopyTo<T>(T t = null)
+            where T : FenceItemBase, new()
+        {
+            if (t == null)
+                t = new T();
+
+            t.fence_id = this.fence_id;
+            t.name = this.name;
+            t.desc = this.desc;
+            t.creator = this.creator;
+            t.monitored_persons = this.monitored_persons;
+            t.observers = this.observers;
+            t.valid_times = this.valid_times;
+            t.valid_cycle = this.valid_cycle;
+            t.valid_date = this.valid_date;
+            t.valid_days = this.valid_days;
+            t.shape = this.shape;
+            t.coord_type = this.coord_type;
+            t.center = this.center;
+            t.radius = this.radius;
+            t.alarm_condition = this.alarm_condition;
+
+            return t;
+        }
+
     }
 
     /// <summary>
@@ -95,7 +120,7 @@ namespace io.nulldata.Baidu.Yingyan.Fence
         /// 观察者列表,必选，观察者的entity_name，使用英文逗号”,”分割，至少一个，最多五个。
         /// </summary>
         [JsonConverter(typeof(ArrayConverter<string>))]
-        public override  List<string> observers { get; set; }
+        public override List<string> observers { get; set; }
         /// <summary>
         /// 围栏生效时间列表,必选，一天中的几点几分到 几点几分生效。至少含有一段生效时间，多个时间段使用分号”;”分隔。比如：“0820,0930;1030,1130”
         /// </summary>
