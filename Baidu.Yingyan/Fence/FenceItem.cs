@@ -73,6 +73,10 @@ namespace io.nulldata.Baidu.Yingyan.Fence
         /// 围栏半径,当shape=1时必选。单位：米，取值范围(0,5000]
         /// </summary>
         public double? radius { get; set; }
+        /// <summary>
+        /// 多边形
+        /// </summary>
+        public abstract List<LocationPoint> vertexes { get; set; }
 
         /// <summary>
         /// 围栏报警条件,可选。1：进入时触发提醒 2：离开时触发提醒 3：进入离开均触发提醒。默认值为3
@@ -132,6 +136,11 @@ namespace io.nulldata.Baidu.Yingyan.Fence
         /// </summary>
         [JsonConverter(typeof(LocationPointToStringConverter))]
         public override LocationPoint center { get; set; }
+        /// <summary>
+        /// 多边形
+        /// </summary>
+        [JsonConverter(typeof(LocationPointToStringConverter))]
+        public override List<LocationPoint> vertexes { get; set; }
 
         public Dictionary<string, string> ToDictionary(bool removeEmptyValue = false)
         {
@@ -166,6 +175,10 @@ namespace io.nulldata.Baidu.Yingyan.Fence
         /// 围栏圆心经纬度,shape为1时必选。格式为：经度,纬度。示例：116.4321,38.76623
         /// </summary>
         public override LocationPoint center { get; set; }
+        /// <summary>
+        /// 多边形
+        /// </summary>
+        public override List<LocationPoint> vertexes { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public DateTime? create_time { get; set; }
@@ -226,11 +239,11 @@ namespace io.nulldata.Baidu.Yingyan.Fence
         /// <summary>
         /// 圆形
         /// </summary>
-        Circle = 1,
+        Circular = 1,
         /// <summary>
         /// 多边形(暂时不支持)
         /// </summary>
-        Polygon = 2
+        Vertexes = 2
     }
     public class TimeRang
     {

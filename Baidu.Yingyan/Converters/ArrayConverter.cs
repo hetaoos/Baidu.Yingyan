@@ -40,7 +40,7 @@ namespace io.nulldata.Baidu.Yingyan.Converters
                     s = string.Join(",", (value as IEnumerable<T>).Select(o => o.ToString()).ToArray());
                 else if (value is string[])
                 {
-                    s = string.Join(",", (value as T[]).Select(o => o.ToString().ToArray()));
+                    s = string.Join(",", (value as T[]).Select(o => o.ToString()).ToArray());
                 }
                 serializer.Serialize(writer, s);
             }
