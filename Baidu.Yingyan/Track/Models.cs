@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace io.nulldata.Baidu.Yingyan.Track
 {
-    public class TrackPoint: LocationPoint
+    public class TrackPoint : LocationPoint
     {
         /// <summary>
         /// 坐标类型
@@ -18,12 +18,21 @@ namespace io.nulldata.Baidu.Yingyan.Track
         /// </summary>
         public DateTime loc_time { get; set; }
 
+        [JsonExtensionData]
+        public IDictionary<string, object> columns { get; set; }
+
         public override string ToString()
         {
             return string.Format("{0},{1},{2},{3}", longitude, latitude, loc_time.ToUtcTicks(), (int)coord_type);
         }
     }
 
+    public class BatchAddPointResult : CommonResult
+    {
+        public int time { get; set; }
+
+        public List<TrackPoint> error_points { get; set; }
+    }
 
     public class TrackHistoryResult : CommonResult
     {
@@ -64,7 +73,7 @@ namespace io.nulldata.Baidu.Yingyan.Track
 
     public class TrackColumn
     {
-        public TrackColumnType column_type  { get; set; }
+        public TrackColumnType column_type { get; set; }
         public DateTime create_time { get; set; }
         public string column_key { get; set; }
         public string column_desc { get; set; }

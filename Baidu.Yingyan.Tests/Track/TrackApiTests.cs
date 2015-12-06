@@ -26,9 +26,9 @@ namespace Baidu.Yingyan.Tests.Track
             entity_name1 = "data1";
             entity_name2 = "data2";
 
-            var r1 = yingyan.entity.add(entity_name1).Result;
-            var r2 = yingyan.entity.delete(entity_name2).Result;
-            var r3 = yingyan.entity.add(entity_name2).Result;
+            //var r1 = yingyan.entity.add(entity_name1).Result;
+            //var r2 = yingyan.entity.delete(entity_name2).Result;
+            //var r3 = yingyan.entity.add(entity_name2).Result;
 
 
         }
@@ -55,7 +55,7 @@ namespace Baidu.Yingyan.Tests.Track
         [Test()]
         public void batchUploadData2()
         {
-            batchUploadData(entity_name2, 50);
+            batchUploadData(entity_name2, 90);
         }
 
 
