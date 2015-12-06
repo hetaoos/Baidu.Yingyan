@@ -58,6 +58,7 @@
     <Compile Include="Entity\EntityApiTests.cs" />
     <Compile Include="Fence\FenceItemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Track\TrackApiTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Baidu.Yingyan\Baidu.Yingyan.csproj">
