@@ -51,37 +51,67 @@ namespace io.nulldata.Baidu.Yingyan.Track
         /// <returns></returns>
         public async Task<CommonResult> addpoints(string entity_name, params TrackPoint[] points)
         {
+            string bodyFormat = @"------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition:form-data;name=""ak""
+
+{0}
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition:form-data;name=""service_id""
+
+{1}
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition:form-data;name=""entity_name""
+
+{2}
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition:form-data;name=""point_list"";filename=""demo.csv""
+Content-Type:application/vnd.ms-excel
+
+{3}
+------WebKitFormBoundary7MA4YWxkTrZu0gW";
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = url;
+                client.BaseAddress = url; //new Uri("http://127.0.0.1");
 
-                var args = framework.getArgs();
-                args["entity_name"] = entity_name;
-                var formData = new FormUrlEncodedContent(args);
+                //var args = framework.getArgs();
+                //args["entity_name"] = entity_name;
 
-                var content = new MultipartFormDataContent();
-                content.Add(new StringContent(framework.ak), "ak");
-                content.Add(formData);
+                //var content = new MultipartFormDataContent();
+
+                //foreach (var p in args)
+                //{
+                //    var formData = new StringContent(p.Value,);
+                //    var header = new ContentDispositionHeaderValue("form-data")
+                //    {
+                //        Name = p.Key
+                //    };
+                //    formData.Headers.ContentDisposition = header;
+                //    formData.Headers.ContentType = null;
+                //    content.Add(formData);
+                //}
 
                 var data = string.Join(Environment.NewLine,
                     new string[] { "longitude,latitude,loc_time,coord_type" }
                     .Union(points.Select(o => o.ToString())));
 
-                var fileContent = new ByteArrayContent(Encoding.UTF8.GetBytes(data));
-                var header = new ContentDispositionHeaderValue("form-data");
+                //var fileContent = new ByteArrayContent(Encoding.UTF8.GetBytes(data));
 
-                foreach (var parameter in args)
-                {
-                    header.Parameters.Add(new NameValueHeaderValue(parameter.Key, parameter.Value.ToString()));
-                }
-                header.Name = "point_list";
-                header.FileName = "point_list.csv";
-                header.FileNameStar = "point_list.csv";
+                //var header = new ContentDispositionHeaderValue("form-data")
+                //{
+                //    Name = "point_list",
+                //    FileName = "point_list.csv",
+                //};
+                //fileContent.Headers.ContentDisposition = header;
+                //fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.ms-excel");
+                //content.Add(fileContent);
 
-                fileContent.Headers.ContentDisposition = header;  
-                content.Add(fileContent);
-      
+                string body = string.Format(bodyFormat, framework.ak, framework.service_id, entity_name, data);
+                var content = new StringContent(body);
+
+                var header = new MediaTypeHeaderValue("multipart/form-data");
+                header.Parameters.Add(new NameValueHeaderValue("boundary", "----WebKitFormBoundary7MA4YWxkTrZu0gW"));
+                content.Headers.ContentType = header;
 
                 var response = await client.PostAsync("addpoints", content);
                 if (response.IsSuccessStatusCode)
