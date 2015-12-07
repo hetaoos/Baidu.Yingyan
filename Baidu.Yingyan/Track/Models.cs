@@ -64,8 +64,14 @@ namespace io.nulldata.Baidu.Yingyan.Track
         public int size { get; set; }
         public int total { get; set; }
         public string entity_name { get; set; }
-        public int distance { get; set; }
-        public double[][] points { get; set; }
+        public double distance { get; set; }
+        public List<TrackHistorySimplePoint> points { get; set; }
+    }
+    [JsonConverter(typeof(TrackHistorySimplePointConverter))]
+    public class TrackHistorySimplePoint : LocationPoint
+    {
+        public DateTime loc_time { get; set; }
+        public double? speed { get; set; }
     }
 
 

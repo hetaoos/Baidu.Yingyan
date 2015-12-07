@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonResult.cs" />
+    <Compile Include="Converters\TrackHistorySimplePointConverter.cs" />
     <Compile Include="Converters\LocationPointToStringConverter.cs" />
     <Compile Include="Converters\TimeOfDayConverter.cs" />
     <Compile Include="Converters\TimeRangConverter.cs" />
