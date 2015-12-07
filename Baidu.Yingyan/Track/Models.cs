@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using io.nulldata.Baidu.Yingyan.Converters;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,14 +40,16 @@ namespace io.nulldata.Baidu.Yingyan.Track
         public int size { get; set; }
         public int total { get; set; }
         public string entity_name { get; set; }
-        public int distance { get; set; }
+        public double distance { get; set; }
         public TrackHistoryPoint[] points { get; set; }
     }
 
     public class TrackHistoryPoint
     {
-        public int loc_time { get; set; }
-        public float[] location { get; set; }
+        [JsonConverter(typeof(UnixTicksConverter))]
+        public DateTime loc_time { get; set; }
+        [JsonConverter(typeof(LocationPointToArrayConverter))]
+        public LocationPoint location { get; set; }
         public DateTime create_time { get; set; }
         public double? speed { get; set; }
         public double? radius { get; set; }
