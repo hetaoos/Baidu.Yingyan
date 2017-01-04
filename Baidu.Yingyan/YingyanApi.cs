@@ -1,6 +1,6 @@
-﻿using io.nulldata.Baidu.Yingyan.Entity;
-using io.nulldata.Baidu.Yingyan.Fence;
-using io.nulldata.Baidu.Yingyan.Track;
+﻿using Baidu.Yingyan.Entity;
+using Baidu.Yingyan.Fence;
+using Baidu.Yingyan.Track;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -10,7 +10,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace io.nulldata.Baidu.Yingyan
+namespace Baidu.Yingyan
 {
     public class YingyanApi
     {

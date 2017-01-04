@@ -1,4 +1,4 @@
-﻿using io.nulldata.Baidu.Yingyan.Track;
+﻿using Baidu.Yingyan.Track;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace io.nulldata.Baidu.Yingyan.Converters
+namespace Baidu.Yingyan.Converters
 {
     /// <summary>
     /// 数组存储的经纬度和 LocationPoint 相互转换

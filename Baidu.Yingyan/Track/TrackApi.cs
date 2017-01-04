@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace io.nulldata.Baidu.Yingyan.Track
+namespace Baidu.Yingyan.Track
 {
     public class TrackApi
     {

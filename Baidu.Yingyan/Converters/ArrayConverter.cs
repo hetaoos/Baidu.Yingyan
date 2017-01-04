@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace io.nulldata.Baidu.Yingyan.Converters
+namespace Baidu.Yingyan.Converters
 {
     public class ArrayConverter<T> : JsonConverter
     {

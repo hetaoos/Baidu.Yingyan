@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using io.nulldata.Baidu.Yingyan.Fence;
-using io.nulldata.Baidu.Yingyan;
+using Baidu.Yingyan.Fence;
+using Baidu.Yingyan;
 using Newtonsoft.Json;
 
 namespace Baidu.Yingyan.Tests.Fence

@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using io.nulldata.Baidu.Yingyan.Entity;
+using Baidu.Yingyan.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace io.nulldata.Baidu.Yingyan.Entity.Tests
+namespace Baidu.Yingyan.Entity.Tests
 {
     [TestFixture()]
     public class EntityApiTests

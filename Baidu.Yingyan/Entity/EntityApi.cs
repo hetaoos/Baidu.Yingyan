@@ -9,7 +9,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace io.nulldata.Baidu.Yingyan.Entity
+namespace Baidu.Yingyan.Entity
 {
     public class EntityApi
     {

@@ -1,6 +1,6 @@
-﻿using io.nulldata.Baidu.Yingyan;
-using io.nulldata.Baidu.Yingyan.Entity;
-using io.nulldata.Baidu.Yingyan.Track;
+﻿using Baidu.Yingyan;
+using Baidu.Yingyan.Entity;
+using Baidu.Yingyan.Track;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace io.nulldata.Baidu.Yingyan.Demo
+namespace Baidu.Yingyan.Demo
 {
     class Program
     {
         static void Main(string[] args)
         {
             var time = new Fence.TimeRang();
-            var js = new io.nulldata.Baidu.Yingyan.Fence.FenceItemAsResult()
+            var js = new Baidu.Yingyan.Fence.FenceItemAsResult()
             {
                 coord_type = CoordType.Baidu,
                 monitored_persons = new List<string>(new string[] { "111", "222", "222" }),
@@ -25,7 +25,7 @@ namespace io.nulldata.Baidu.Yingyan.Demo
                 center = new LocationPoint() { latitude = 10, longitude = 100 }
             };
             var str = JsonConvert.SerializeObject(js);
-            js = JsonConvert.DeserializeObject<io.nulldata.Baidu.Yingyan.Fence.FenceItemAsResult>(str);
+            js = JsonConvert.DeserializeObject<Baidu.Yingyan.Fence.FenceItemAsResult>(str);
             var dic2 = JsonConvert.DeserializeObject<Dictionary<string, string>>(str);
             var ak = "jmH6fA2QzDWfyPvkKslL741L";
             var service_id = "105686";

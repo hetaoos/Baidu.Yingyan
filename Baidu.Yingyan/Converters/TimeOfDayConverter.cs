@@ -1,4 +1,4 @@
-﻿using io.nulldata.Baidu.Yingyan.Fence;
+﻿using Baidu.Yingyan.Fence;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace io.nulldata.Baidu.Yingyan.Converters
+namespace Baidu.Yingyan.Converters
 {
     public class TimeOfDayConverter : JsonConverter
     {

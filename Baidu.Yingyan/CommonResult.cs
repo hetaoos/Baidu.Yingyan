@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace io.nulldata.Baidu.Yingyan
+namespace Baidu.Yingyan
 {
     public class CommonResult
     {

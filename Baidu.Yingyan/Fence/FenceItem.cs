@@ -1,4 +1,4 @@
-﻿using io.nulldata.Baidu.Yingyan.Converters;
+﻿using Baidu.Yingyan.Converters;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace io.nulldata.Baidu.Yingyan.Fence
+namespace Baidu.Yingyan.Fence
 {
     /// <summary>
     /// 围栏的基本信息

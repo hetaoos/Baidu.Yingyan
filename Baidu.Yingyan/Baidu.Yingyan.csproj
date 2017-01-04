@@ -7,10 +7,11 @@
     <ProjectGuid>{720BB8C2-E421-4772-A0E5-F462FAD3BBD4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>io.nulldata.Baidu.Yingyan</RootNamespace>
+    <RootNamespace>Baidu.Yingyan</RootNamespace>
     <AssemblyName>Baidu.Yingyan</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
