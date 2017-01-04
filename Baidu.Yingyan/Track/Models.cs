@@ -35,6 +35,101 @@ namespace Baidu.Yingyan.Track
         public List<TrackPoint> error_points { get; set; }
     }
 
+    /// <summary>
+    /// 纠偏选项
+    /// </summary>
+    public class TrackHistoryProcessOption
+    {
+        /// <summary>
+        /// 去噪，默认为1
+        /// </summary>
+        public bool? need_denoise { get; set; }
+        /// <summary>
+        ///   抽稀，默认为1
+        /// </summary>
+        public bool? need_vacuate { get; set; }
+
+        /// <summary>
+        /// 绑路，之前未开通绑路的service，默认值为0；之前已开通绑路的service，默认值为1
+        /// </summary>
+        public bool? need_mapmatch { get; set; }
+        /// <summary>
+        /// 交通方式
+        /// </summary>
+        public TrackHistoryTransportMode? transport_mode { get; set; }
+        /// <summary>
+        /// 获取选项值
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private string GetOption(string name, bool value)
+        {
+            var t = value == true ? 1 : 0;
+            return $"{name}={t}";
+        }
+        public override string ToString()
+        {
+            var options = new List<string>();
+            if (need_denoise != null)
+                options.Add(GetOption(nameof(need_denoise), need_denoise.Value));
+            if (need_vacuate != null)
+                options.Add(GetOption(nameof(need_vacuate), need_vacuate.Value));
+            if (need_mapmatch != null)
+                options.Add(GetOption(nameof(need_mapmatch), need_mapmatch.Value));
+            if (transport_mode != null)
+                options.Add($"{nameof(transport_mode)}={(int)transport_mode}");
+            return string.Join(",", options);
+        }
+    }
+
+    /// <summary>
+    /// 交通方式
+    /// </summary>
+    public enum TrackHistoryTransportMode
+    {
+        /// <summary>
+        /// 驾车(默认)
+        /// </summary>
+        driving = 1,
+        /// <summary>
+        ///  骑行
+        /// </summary>
+        riding = 2,
+        /// <summary>
+        /// 步行
+        /// </summary>
+        walking = 3,
+    }
+
+    /// <summary>
+    /// 里程补偿方式
+    /// </summary>
+    public enum TrackHistorySupplementMode
+    {
+        /// <summary>
+        /// 不补充，中断两点间距离不记入里程。
+        /// </summary>
+        no_supplement,
+        /// <summary>
+        ///  使用直线距离补充
+        /// </summary>
+        straight,
+        /// <summary>
+        /// 使用最短驾车路线距离补充
+        /// </summary>
+        driving,
+        /// <summary>
+        ///  使用最短骑行路线距离补充
+        /// </summary>
+        riding,
+        /// <summary>
+        /// 使用最短步行路线距离补充
+        /// </summary>
+        walking,
+    }
+
+
     public class TrackHistoryResult : CommonResult
     {
         public int size { get; set; }
