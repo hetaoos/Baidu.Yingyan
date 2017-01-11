@@ -139,16 +139,57 @@ namespace Baidu.Yingyan.Track
         public TrackHistoryPoint[] points { get; set; }
     }
 
+    /// <summary>
+    /// 历史记录点
+    /// </summary>
     public class TrackHistoryPoint
     {
+        /// <summary>
+        /// 定位时的设备时间
+        /// </summary>
         [JsonConverter(typeof(UnixTicksConverter))]
         public DateTime loc_time { get; set; }
         [JsonConverter(typeof(LocationPointToArrayConverter))]
         public LocationPoint location { get; set; }
+        /// <summary>
+        /// 创建时间
+        /// </summary>
         public DateTime create_time { get; set; }
+        /// <summary>
+        /// 速度
+        /// </summary>
         public double? speed { get; set; }
+        /// <summary>
+        /// 定位精度
+        /// </summary>
         public double? radius { get; set; }
+        /// <summary>
+        /// 方向
+        /// </summary>
         public int? direction { get; set; }
+
+        /// <summary>
+        /// 高度
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? height { get; set; }
+
+        /// <summary>
+        /// 楼层
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? floor { get; set; }
+
+        /// <summary>
+        /// 填充点
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public bool? _supplement { get; set; }
+        /// <summary>
+        /// 绑路失败
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public bool? _mapmatch_failed { get; set; }
 
         [JsonExtensionData]
         public IDictionary<string, object> columns { get; set; }

@@ -98,9 +98,9 @@ Content-Type:application/vnd.ms-excel
         /// <param name="page_index">可选，默认值为1。page_index与page_size一起计算从第几条结果返回，代表返回第几页。</param>
         /// <param name="page_size">可选，默认值为100。page_size与page_index一起计算从第几条结果返回，代表返回结果中每页有几条记录</param>
         /// <returns></returns>
-        public async Task<TrackHistoryResult> gethistory(string entity_name, DateTime start_time, DateTime end_time, bool is_processed = false, TrackHistoryProcessOption process_option = null, TrackHistorySupplementMode? supplement_mode = null, int page_index = 1, int page_size = 100)
+        public async Task<TrackHistoryResult> gethistory(string entity_name, DateTime start_time, DateTime end_time, bool sort_desc = true, bool is_processed = false, TrackHistoryProcessOption process_option = null, TrackHistorySupplementMode? supplement_mode = null, int page_index = 1, int page_size = 100)
         {
-            return await gethistory_base(entity_name, start_time, end_time, false, is_processed, process_option, supplement_mode, page_index, page_size) as TrackHistoryResult;
+            return await gethistory_base(entity_name, start_time, end_time, false, sort_desc, is_processed, process_option, supplement_mode, page_index, page_size) as TrackHistoryResult;
         }
 
         /// <summary>
@@ -110,9 +110,9 @@ Content-Type:application/vnd.ms-excel
         /// <param name="page_index">可选，默认值为1。page_index与page_size一起计算从第几条结果返回，代表返回第几页。</param>
         /// <param name="page_size">可选，默认值为100。page_size与page_index一起计算从第几条结果返回，代表返回结果中每页有几条记录</param>
         /// <returns></returns>
-        public async Task<TrackHistorySimpleResult> gethistory_simple(string entity_name, DateTime start_time, DateTime end_time, bool is_processed = false, TrackHistoryProcessOption process_option = null, TrackHistorySupplementMode? supplement_mode = null, int page_index = 1, int page_size = 100)
+        public async Task<TrackHistorySimpleResult> gethistory_simple(string entity_name, DateTime start_time, DateTime end_time, bool sort_desc = true, bool is_processed = false, TrackHistoryProcessOption process_option = null, TrackHistorySupplementMode? supplement_mode = null, int page_index = 1, int page_size = 100)
         {
-            return await gethistory_base(entity_name, start_time, end_time, true, is_processed, process_option, supplement_mode, page_index, page_size) as TrackHistorySimpleResult;
+            return await gethistory_base(entity_name, start_time, end_time, true, sort_desc, is_processed, process_option, supplement_mode, page_index, page_size) as TrackHistorySimpleResult;
         }
         /// <summary>
         /// 通过service _id和entity_name查找本entity历史轨迹点的具体信息，包括经纬度，时间，其他用户自定义信息等。
@@ -121,7 +121,7 @@ Content-Type:application/vnd.ms-excel
         /// <param name="page_index">可选，默认值为1。page_index与page_size一起计算从第几条结果返回，代表返回第几页。</param>
         /// <param name="page_size">可选，默认值为100。page_size与page_index一起计算从第几条结果返回，代表返回结果中每页有几条记录</param>
         /// <returns></returns>
-        internal async Task<CommonResult> gethistory_base(string entity_name, DateTime start_time, DateTime end_time, bool simple_return = false, bool is_processed = false, TrackHistoryProcessOption process_option = null, TrackHistorySupplementMode? supplement_mode = null, int page_index = 1, int page_size = 100)
+        internal async Task<CommonResult> gethistory_base(string entity_name, DateTime start_time, DateTime end_time, bool simple_return = false, bool sort_desc = true, bool is_processed = false, TrackHistoryProcessOption process_option = null, TrackHistorySupplementMode? supplement_mode = null, int page_index = 1, int page_size = 100)
         {
             if (page_size > 5000)
                 page_size = 5000;
@@ -132,6 +132,7 @@ Content-Type:application/vnd.ms-excel
             nv.Add("end_time", end_time.ToUtcTicks().ToString());
 
             nv.Add("simple_return", simple_return ? "1" : "0");
+            nv.Add("sort_type", sort_desc ? "0" : "1");
             nv.Add("is_processed", is_processed ? "1" : "0");
             if (process_option != null)
                 nv.Add("process_option", process_option.ToString());
