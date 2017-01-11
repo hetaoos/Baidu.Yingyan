@@ -178,6 +178,7 @@ namespace Baidu.Yingyan.Track
         /// 楼层
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(FloorConverter))]
         public int? floor { get; set; }
 
         /// <summary>

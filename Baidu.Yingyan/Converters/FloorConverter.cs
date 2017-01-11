@@ -7,30 +7,28 @@ using System.Threading.Tasks;
 
 namespace Baidu.Yingyan.Converters
 {
-    public class FloorConverter : JsonConverter
+    public class UnixTicksConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
             return true;
         }
 
-        public override bool CanWrite => false;
-        public override bool CanRead => true;
-
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var t = serializer.Deserialize<string>(reader);
-            if (string.IsNullOrWhiteSpace(t))
-                return null;
-            double d;
-            if (double.TryParse(t, out d))
-                return (int)d;
+            var t = serializer.Deserialize<long?>(reader);
+            if (t != null)
+                return t.Value.FromUtcTicks();
             return null;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            if (value != null && value is DateTime)
+            {
+                var p = (long)((DateTime)value).ToUtcTicks();
+                serializer.Serialize(writer, p);
+            }
         }
     }
 }
