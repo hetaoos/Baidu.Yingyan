@@ -20,18 +20,22 @@ namespace Baidu.Yingyan
         /// 用户的ak
         /// </summary>
         public string ak { get; private set; }
+
         /// <summary>
         /// service的ID，service 的唯一标识。
         /// </summary>
         public string service_id { get; private set; }
+
         /// <summary>
         /// 终端管理
         /// </summary>
         public EntityApi entity { get; private set; }
+
         /// <summary>
         /// 轨迹管理
         /// </summary>
         public TrackApi track { get; private set; }
+
         /// <summary>
         /// 地理围栏
         /// </summary>
@@ -43,6 +47,7 @@ namespace Baidu.Yingyan
         public const string url = "http://yingyan.baidu.com/api/v3/";
 
         private HttpClient client;
+
         /// <summary>
         /// 鹰眼轨迹服务接口
         /// </summary>
@@ -111,6 +116,26 @@ namespace Baidu.Yingyan
                 nv = param.FillArgs(nv);
             return get<TResult>(uri, requestUri, nv, getDefaultHttpError<TResult>());
         }
+
+        /// <summary>
+        /// GET 操作
+        /// </summary>
+        /// <typeparam name="TResult">返回对象</typeparam>
+        /// <param name="uri">基本地址</param>
+        /// <param name="requestUri">方法</param>
+        /// <param name="param">参数</param>
+        /// <returns></returns>
+        internal Task<TResult> post<TResult>(Uri uri, string requestUri, IYingyanParam param = null)
+            where TResult : CommonResult, new()
+        {
+            var nv = getNameValueCollection();
+            if (param != null)
+                nv = param.FillArgs(nv);
+
+            var content = new FormUrlEncodedContent(nv.AllKeys.SelectMany(nv.GetValues, (k, v) => new KeyValuePair<string, string>(k, v)));
+            return post<TResult>(uri, requestUri, content, getDefaultHttpError<TResult>());
+        }
+
         /// <summary>
         /// GET 操作
         /// </summary>
