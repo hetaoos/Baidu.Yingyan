@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace System
+namespace Baidu.Yingyan
 {
     public static class DateTimeExtension
     {

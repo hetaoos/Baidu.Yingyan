@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baidu.Yingyan", "Baidu.Yingyan\Baidu.Yingyan.csproj", "{720BB8C2-E421-4772-A0E5-F462FAD3BBD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Baidu.Yingyan", "Baidu.Yingyan\Baidu.Yingyan.csproj", "{720BB8C2-E421-4772-A0E5-F462FAD3BBD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{157C3168-1D04-4AEC-A47A-364101FD641D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", "{157C3168-1D04-4AEC-A47A-364101FD641D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baidu.Yingyan.Tests", "Baidu.Yingyan.Tests\Baidu.Yingyan.Tests.csproj", "{41A2AB5D-C1C1-4BE6-86C2-5860819AB55D}"
 EndProject

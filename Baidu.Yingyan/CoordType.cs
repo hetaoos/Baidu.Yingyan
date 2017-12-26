@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Baidu.Yingyan
+﻿namespace Baidu.Yingyan
 {
+    /// <summary>
+    /// 坐标系
+    /// </summary>
     public enum CoordType
     {
         /// <summary>
-        /// GPS经纬度坐标
+        /// 一种大地坐标系，也是目前广泛使用的GPS全球卫星定位系统使用的坐标系
         /// </summary>
-        GPS = 1,
+        wgs84 = 1,
+
         /// <summary>
-        /// 国测局加密经纬度坐标
+        /// 是由中国国家测绘局制订的地理信息系统的坐标系统。由WGS84坐标系经加密后的坐标系
         /// </summary>
-        Gov = 2,
+        gcj02 = 2,
+
         /// <summary>
-        /// 百度加密经纬度坐标
+        /// 为百度坐标系，在GCJ02坐标系基础上再次加密。
         /// </summary>
-        Baidu = 3
+        bd09ll = 3
     }
 }

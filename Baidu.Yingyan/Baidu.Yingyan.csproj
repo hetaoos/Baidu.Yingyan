@@ -9,9 +9,9 @@
     <Description>百度鹰眼 Sdk for .NET Standard 2.0</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>百度鹰眼 鹰眼 yingyan</PackageTags>
-    <AssemblyVersion>1.0.4.0</AssemblyVersion>
-    <FileVersion>1.0.4.0</FileVersion>
-    <Version>1.0.4.0</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

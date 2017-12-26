@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace System
+namespace Baidu.Yingyan
 {
     public static class NameValueCollectionExtension
     {

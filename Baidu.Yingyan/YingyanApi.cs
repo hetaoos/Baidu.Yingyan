@@ -7,32 +7,57 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Baidu.Yingyan
 {
+    /// <summary>
+    /// 鹰眼轨迹服务接口
+    /// </summary>
     public class YingyanApi
     {
+        /// <summary>
+        /// 用户的ak
+        /// </summary>
         public string ak { get; private set; }
+        /// <summary>
+        /// service的ID，service 的唯一标识。
+        /// </summary>
         public string service_id { get; private set; }
-
+        /// <summary>
+        /// 终端管理
+        /// </summary>
         public EntityApi entity { get; private set; }
-
+        /// <summary>
+        /// 轨迹管理
+        /// </summary>
         public TrackApi track { get; private set; }
-
+        /// <summary>
+        /// 地理围栏
+        /// </summary>
         public FenceApi fence { get; private set; }
 
-        public const string url = "http://api.map.baidu.com/trace/v2/";
+        /// <summary>
+        /// 接口地址
+        /// </summary>
+        public const string url = "http://yingyan.baidu.com/api/v3/";
 
+        private HttpClient client;
+        /// <summary>
+        /// 鹰眼轨迹服务接口
+        /// </summary>
+        /// <param name="ak">用户的ak</param>
+        /// <param name="service_id">service的ID，service 的唯一标识</param>
         public YingyanApi(string ak, string service_id)
         {
             this.ak = ak;
             this.service_id = service_id;
+            client = new HttpClient();
             entity = new EntityApi(this);
             track = new TrackApi(this);
             fence = new FenceApi(this);
         }
+
         /// <summary>
         /// POST 操作
         /// </summary>
@@ -59,12 +84,33 @@ namespace Baidu.Yingyan
             }
         }
 
+        /// <summary>
+        /// 获取默认请求错误信息
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         internal static Func<HttpResponseMessage, T> getDefaultHttpError<T>()
              where T : CommonResult, new()
         {
-            return (o) => new T() { status = (int)o.StatusCode, message = "HTTP 请求异常" };
+            return (o) => new T() { status = StatusCode.error999, message = "HTTP 请求异常" };
         }
 
+        /// <summary>
+        /// GET 操作
+        /// </summary>
+        /// <typeparam name="TResult">返回对象</typeparam>
+        /// <param name="uri">基本地址</param>
+        /// <param name="requestUri">方法</param>
+        /// <param name="param">参数</param>
+        /// <returns></returns>
+        internal Task<TResult> get<TResult>(Uri uri, string requestUri, IYingyanParam param = null)
+            where TResult : CommonResult, new()
+        {
+            var nv = getNameValueCollection();
+            if (param != null)
+                nv = param.FillArgs(nv);
+            return get<TResult>(uri, requestUri, nv, getDefaultHttpError<TResult>());
+        }
         /// <summary>
         /// GET 操作
         /// </summary>
@@ -103,7 +149,11 @@ namespace Baidu.Yingyan
             }
         }
 
-
+        /// <summary>
+        /// 构造参数
+        /// </summary>
+        /// <param name="otherValues">The other values.</param>
+        /// <returns></returns>
         internal Dictionary<string, string> getArgs(IEnumerable<KeyValuePair<string, string>> otherValues = null)
         {
             var args = new Dictionary<string, string>();
@@ -118,6 +168,11 @@ namespace Baidu.Yingyan
             return args;
         }
 
+        /// <summary>
+        /// 构造参数
+        /// </summary>
+        /// <param name="otherValues">The other values.</param>
+        /// <returns></returns>
         internal NameValueCollection getNameValueCollection(IEnumerable<KeyValuePair<string, string>> otherValues = null)
         {
             var args = new NameValueCollection();
