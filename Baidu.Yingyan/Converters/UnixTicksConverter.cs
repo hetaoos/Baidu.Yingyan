@@ -3,30 +3,55 @@ using System;
 
 namespace Baidu.Yingyan.Converters
 {
-    public class FloorConverter : JsonConverter
+    /// <summary>
+    /// Unix时间戳转换
+    /// </summary>
+    /// <seealso cref="Newtonsoft.Json.JsonConverter" />
+    public class UnixTicksConverter : JsonConverter
     {
+        /// <summary>
+        /// Determines whether this instance can convert the specified object type.
+        /// </summary>
+        /// <param name="objectType">Type of the object.</param>
+        /// <returns>
+        /// <c>true</c> if this instance can convert the specified object type; otherwise, <c>false</c>.
+        /// </returns>
         public override bool CanConvert(Type objectType)
         {
             return true;
         }
 
-        public override bool CanWrite => false;
-        public override bool CanRead => true;
-
+        /// <summary>
+        /// Reads the JSON representation of the object.
+        /// </summary>
+        /// <param name="reader">The <see cref="T:Newtonsoft.Json.JsonReader" /> to read from.</param>
+        /// <param name="objectType">Type of the object.</param>
+        /// <param name="existingValue">The existing value of object being read.</param>
+        /// <param name="serializer">The calling serializer.</param>
+        /// <returns>
+        /// The object value.
+        /// </returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var t = serializer.Deserialize<string>(reader);
-            if (string.IsNullOrWhiteSpace(t))
-                return null;
-            double d;
-            if (double.TryParse(t, out d))
-                return (int)d;
+            var t = serializer.Deserialize<long?>(reader);
+            if (t != null)
+                return t.Value.FromUtcTicks();
             return null;
         }
 
+        /// <summary>
+        /// Writes the JSON representation of the object.
+        /// </summary>
+        /// <param name="writer">The <see cref="T:Newtonsoft.Json.JsonWriter" /> to write to.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="serializer">The calling serializer.</param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            if (value != null && value is DateTime)
+            {
+                var p = (long)((DateTime)value).ToUtcTicks();
+                serializer.Serialize(writer, p);
+            }
         }
     }
 }
