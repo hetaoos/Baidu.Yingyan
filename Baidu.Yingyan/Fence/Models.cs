@@ -39,7 +39,7 @@ namespace Baidu.Yingyan.Fence
         /// <summary>
         /// 坐标类型
         /// </summary>
-        public CoordType coord_type { get; set; } = CoordType.bd09ll;
+        public CoordTypeEnums coord_type { get; set; } = CoordTypeEnums.bd09ll;
 
         /// <summary>
         /// 围栏去噪参数
@@ -331,7 +331,7 @@ namespace Baidu.Yingyan.Fence
         /// <summary>
         /// 输出坐标类型
         /// </summary>
-        public CoordType coord_type_output { get; set; } = CoordType.bd09ll;
+        public CoordTypeEnums coord_type_output { get; set; } = CoordTypeEnums.bd09ll;
 
         /// <summary>
         /// 填充参数
@@ -426,7 +426,7 @@ namespace Baidu.Yingyan.Fence
         }
     }
 
-    public class FenceQueryStatusResult:CommonResult
+    public class FenceQueryStatusResult : CommonResult
     {
         /// <summary>
         /// 返回结果的数量
@@ -496,7 +496,7 @@ namespace Baidu.Yingyan.Fence
         /// <summary>
         /// 返回坐标类型
         /// </summary>
-        public CoordType coord_type_output { get; set; } = CoordType.bd09ll;
+        public CoordTypeEnums coord_type_output { get; set; } = CoordTypeEnums.bd09ll;
 
         public override NameValueCollection FillArgs(NameValueCollection nv)
         {
@@ -510,7 +510,7 @@ namespace Baidu.Yingyan.Fence
         }
     }
 
-    public class FenceAlarmHistoryQueryResult:CommonResult
+    public class FenceAlarmHistoryQueryResult : CommonResult
     {
         /// <summary>
         /// 返回结果的数量
@@ -576,7 +576,7 @@ namespace Baidu.Yingyan.Fence
         /// <summary>
         /// 返回的坐标类型，仅在国外区域返回该字段，返回值为：wgs84
         /// </summary>
-        public CoordType? coord_type { get; set; }
+        public CoordTypeEnums? coord_type { get; set; }
 
         /// <summary>
         /// 服务端接收到报警信息的时间，
@@ -619,7 +619,7 @@ namespace Baidu.Yingyan.Fence
         /// <summary>
         /// 返回坐标类型
         /// </summary>
-        public CoordType coord_type_output { get; set; } = CoordType.bd09ll;
+        public CoordTypeEnums coord_type_output { get; set; } = CoordTypeEnums.bd09ll;
 
         /// <summary>
         /// 填充参数
@@ -654,5 +654,31 @@ namespace Baidu.Yingyan.Fence
         /// 符合条件的总报警数
         /// </summary>
         public int total { get; set; }
+    }
+
+    /// <summary>
+    /// 报警服务端回调
+    /// <a href="http://lbsyun.baidu.com/index.php?title=yingyan/api/v3/geofencealarm">详情</a>
+    /// </summary>
+    /// <seealso cref="Baidu.Yingyan.CommonResult" />
+    public class FenceAlarmCallbackResult
+    {
+        /// <summary>
+        /// 消息类型
+        /// 	取值1或者2
+        /// 	1：当type=1时，校验该URL为有效URL。此时，content为空或不存在。开发者无需对消息内容做任何处理，只需正常返回即可。
+        /// 	2：当type=2时，推送报警信息，开发者可取content中的内容做其他业务处理。
+        /// </summary>
+        public int type { get; set; }
+
+        /// <summary>
+        /// service的唯一标识，当前报警信息所属的鹰眼服务ID
+        /// </summary>
+        public int service_id { get; set; }
+
+        /// <summary>
+        /// 报警信息数值
+        /// </summary>
+        public FenceAlarmHistory[] content { get; set; }
     }
 }

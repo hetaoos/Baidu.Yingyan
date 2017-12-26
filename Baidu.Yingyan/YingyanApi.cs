@@ -1,4 +1,6 @@
-﻿using Baidu.Yingyan.Entity;
+﻿using Baidu.Yingyan.Analysis;
+using Baidu.Yingyan.Entity;
+using Baidu.Yingyan.Export;
 using Baidu.Yingyan.Fence;
 using Baidu.Yingyan.Track;
 using System;
@@ -42,6 +44,16 @@ namespace Baidu.Yingyan
         public FenceApi fence { get; private set; }
 
         /// <summary>
+        /// 轨迹分析
+        /// </summary>
+        public AnalysisApi analysis { get; private set; }
+
+        /// <summary>
+        /// 批量导出
+        /// </summary>
+        public ExportApi export { get; private set; }
+
+        /// <summary>
         /// 接口地址
         /// </summary>
         public const string url = "http://yingyan.baidu.com/api/v3/";
@@ -61,6 +73,9 @@ namespace Baidu.Yingyan
             entity = new EntityApi(this);
             track = new TrackApi(this);
             fence = new FenceApi(this);
+            analysis = new AnalysisApi(this);
+            export = new ExportApi(this);
+            client = new HttpClient();
         }
 
         /// <summary>
@@ -97,7 +112,7 @@ namespace Baidu.Yingyan
         internal static Func<HttpResponseMessage, T> getDefaultHttpError<T>()
              where T : CommonResult, new()
         {
-            return (o) => new T() { status = StatusCode.error999, message = "HTTP 请求异常" };
+            return (o) => new T() { status = StatusCodeEnums.error999, message = "HTTP 请求异常" };
         }
 
         /// <summary>

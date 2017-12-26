@@ -148,7 +148,7 @@ namespace Baidu.Yingyan.Entity
         /// <summary>
         /// 返回结果的坐标类型，默认值：bd09
         /// </summary>
-        public CoordType coord_type_output { get; set; } = CoordType.bd09ll;
+        public CoordTypeEnums coord_type_output { get; set; } = CoordTypeEnums.bd09ll;
 
         /// <summary>
         /// 可选，默认值为1。page_index与page_size一起计算从第几条结果返回，代表返回第几页。
@@ -289,7 +289,7 @@ namespace Baidu.Yingyan.Entity
         /// <summary>
         /// 请求参数 bounds 的坐标类型
         /// </summary>
-        public CoordType coord_type_input { get; set; } = CoordType.bd09ll;
+        public CoordTypeEnums coord_type_input { get; set; } = CoordTypeEnums.bd09ll;
 
         /// <summary>
         /// 填充参数
@@ -324,7 +324,7 @@ namespace Baidu.Yingyan.Entity
         /// <summary>
         /// 请求参数 bounds 的坐标类型
         /// </summary>
-        public CoordType coord_type_input { get; set; } = CoordType.bd09ll;
+        public CoordTypeEnums coord_type_input { get; set; } = CoordTypeEnums.bd09ll;
 
         /// <summary>
         /// 填充参数
@@ -359,7 +359,7 @@ namespace Baidu.Yingyan.Entity
         /// <summary>
         /// 请求参数 bounds 的坐标类型
         /// </summary>
-        public CoordType coord_type_input { get; set; } = CoordType.bd09ll;
+        public CoordTypeEnums coord_type_input { get; set; } = CoordTypeEnums.bd09ll;
 
         /// <summary>
         /// 填充参数
@@ -393,7 +393,7 @@ namespace Baidu.Yingyan.Entity
         /// <summary>
         /// 设置返回值的内容
         /// </summary>
-        public EntityDistrictSearchReturnType return_type { get; set; } = EntityDistrictSearchReturnType.all;
+        public EntityDistrictSearchReturnTypeEnums return_type { get; set; } = EntityDistrictSearchReturnTypeEnums.all;
 
         /// <summary>
         /// 填充参数
@@ -411,7 +411,7 @@ namespace Baidu.Yingyan.Entity
     /// <summary>
     /// 行政区搜索返回结果类型
     /// </summary>
-    public enum EntityDistrictSearchReturnType
+    public enum EntityDistrictSearchReturnTypeEnums
     {
         /// <summary>
         /// 仅返回 total，即符合本次检索条件的所有

@@ -8,7 +8,7 @@ namespace Baidu.Yingyan
     /// <summary>
     /// 状态码
     /// </summary>
-    public enum StatusCode
+    public enum StatusCodeEnums
     {
         /// <summary>
         /// 正常	

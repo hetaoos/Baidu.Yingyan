@@ -17,7 +17,7 @@ namespace Baidu.Yingyan.Track
         /// <summary>
         /// 坐标类型
         /// </summary>
-        public CoordType coord_type_input { get; set; } = CoordType.bd09ll;
+        public CoordTypeEnums coord_type_input { get; set; } = CoordTypeEnums.bd09ll;
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -104,7 +104,7 @@ namespace Baidu.Yingyan.Track
         /// <summary>
         /// 交通方式
         /// </summary>
-        public TrackHistoryTransportMode? transport_mode { get; set; }
+        public TrackHistoryTransportModeEnums? transport_mode { get; set; }
 
         /// <summary>
         /// 获取选项值
@@ -138,7 +138,7 @@ namespace Baidu.Yingyan.Track
     /// <summary>
     /// 交通方式
     /// </summary>
-    public enum TrackHistoryTransportMode
+    public enum TrackHistoryTransportModeEnums
     {
         /// <summary>
         /// 驾车(默认)
@@ -159,7 +159,7 @@ namespace Baidu.Yingyan.Track
     /// <summary>
     /// 里程补偿方式
     /// </summary>
-    public enum TrackHistorySupplementMode
+    public enum TrackHistorySupplementModeEnums
     {
         /// <summary>
         /// 不补充，中断两点间距离不记入里程。
@@ -205,7 +205,7 @@ namespace Baidu.Yingyan.Track
         /// <summary>
         /// 返回的坐标类型
         /// </summary>
-        public CoordType coord_type_output { get; set; } = CoordType.bd09ll;
+        public CoordTypeEnums coord_type_output { get; set; } = CoordTypeEnums.bd09ll;
 
         /// <summary>
         /// 填充参数
@@ -268,7 +268,7 @@ namespace Baidu.Yingyan.Track
         /// <summary>
         /// 里程补偿方式
         /// </summary>
-        public TrackHistorySupplementMode supplement_mode { get; set; }
+        public TrackHistorySupplementModeEnums supplement_mode { get; set; }
 
         /// <summary>
         /// 填充参数

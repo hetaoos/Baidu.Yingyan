@@ -8,7 +8,7 @@
         /// <summary>
         /// 返回状态，0为成功
         /// </summary>
-        public StatusCode status { get; set; }
+        public StatusCodeEnums status { get; set; }
 
         /// <summary>
         /// 对status的中文描述
