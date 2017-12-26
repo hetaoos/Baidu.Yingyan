@@ -76,43 +76,9 @@ namespace Baidu.Yingyan
             analysis = new AnalysisApi(this);
             export = new ExportApi(this);
             client = new HttpClient();
-        }
-
-        /// <summary>
-        /// POST 操作
-        /// </summary>
-        /// <typeparam name="T">返回对象json</typeparam>
-        /// <param name="uri">BaseAddress</param>
-        /// <param name="requestUri">方法</param>
-        /// <param name="content">提交内容</param>
-        /// <param name="onError">HTTP 错误时处理</param>
-        /// <returns></returns>
-        internal static async Task<T> post<T>(Uri uri, string requestUri, HttpContent content, Func<HttpResponseMessage, T> onError = null)
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = uri;
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                var response = await client.PostAsync(requestUri, content);
-                if (response.IsSuccessStatusCode)
-                    return await response.Content.JsonReadAsAsync<T>();
-                if (onError != null)
-                    return onError(response);
-                return default(T);
-            }
-        }
-
-        /// <summary>
-        /// 获取默认请求错误信息
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        internal static Func<HttpResponseMessage, T> getDefaultHttpError<T>()
-             where T : CommonResult, new()
-        {
-            return (o) => new T() { status = StatusCodeEnums.error999, message = "HTTP 请求异常" };
+            client.BaseAddress = new Uri(url);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         /// <summary>
@@ -123,13 +89,10 @@ namespace Baidu.Yingyan
         /// <param name="requestUri">方法</param>
         /// <param name="param">参数</param>
         /// <returns></returns>
-        internal Task<TResult> get<TResult>(Uri uri, string requestUri, IYingyanParam param = null)
+        internal Task<TResult> get<TResult>(string requestUri, NameValueCollection param)
             where TResult : CommonResult, new()
         {
-            var nv = getNameValueCollection();
-            if (param != null)
-                nv = param.FillArgs(nv);
-            return get<TResult>(uri, requestUri, nv, getDefaultHttpError<TResult>());
+            return get<TResult>(requestUri, new NameValueCollectionYingyanParam(param));
         }
 
         /// <summary>
@@ -140,31 +103,16 @@ namespace Baidu.Yingyan
         /// <param name="requestUri">方法</param>
         /// <param name="param">参数</param>
         /// <returns></returns>
-        internal Task<TResult> post<TResult>(Uri uri, string requestUri, IYingyanParam param = null)
-            where TResult : CommonResult, new()
+        internal async Task<TResult> get<TResult>(string requestUri, IYingyanParam param = null)
+        where TResult : CommonResult, new()
         {
             var nv = getNameValueCollection();
             if (param != null)
                 nv = param.FillArgs(nv);
 
-            var content = new FormUrlEncodedContent(nv.AllKeys.SelectMany(nv.GetValues, (k, v) => new KeyValuePair<string, string>(k, v)));
-            return post<TResult>(uri, requestUri, content, getDefaultHttpError<TResult>());
-        }
-
-        /// <summary>
-        /// GET 操作
-        /// </summary>
-        /// <typeparam name="T">返回对象json</typeparam>
-        /// <param name="uri">BaseAddress</param>
-        /// <param name="requestUri">方法</param>
-        /// <param name="content">提交内容</param>
-        /// <param name="onError">HTTP 错误时处理</param>
-        /// <returns></returns>
-        internal static async Task<T> get<T>(Uri uri, string requestUri, NameValueCollection content = null, Func<HttpResponseMessage, T> onError = null)
-        {
-            if (content != null && content.Count > 0)
+            if (nv?.Count > 0)
             {
-                var q = content.ToUriQuery();
+                var q = nv.ToUriQuery();
                 if (string.IsNullOrEmpty(requestUri))
                     requestUri = "?" + q;
                 else if (requestUri.IndexOf('?') >= 0)
@@ -174,38 +122,55 @@ namespace Baidu.Yingyan
                 else
                     requestUri += "?" + q;
             }
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = uri;
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var response = await client.GetAsync(requestUri);
-                if (response.IsSuccessStatusCode)
-                    return await response.Content.JsonReadAsAsync<T>();
-                if (onError != null)
-                    return onError(response);
-                return default(T);
-            }
+            var response = await client.GetAsync(requestUri);
+            if (response.IsSuccessStatusCode)
+                return await response.Content.JsonReadAsAsync<TResult>();
+
+            var r = new TResult();
+            r.status = StatusCodeEnums.error999;
+            r.message = $"http 请求错误：StatusCode={response.StatusCode}, ReasonPhrase={response.ReasonPhrase}";
+            return r;
         }
 
         /// <summary>
-        /// 构造参数
+        /// GET 操作
         /// </summary>
-        /// <param name="otherValues">The other values.</param>
+        /// <typeparam name="TResult">返回对象</typeparam>
+        /// <param name="uri">基本地址</param>
+        /// <param name="requestUri">方法</param>
+        /// <param name="param">参数</param>
         /// <returns></returns>
-        internal Dictionary<string, string> getArgs(IEnumerable<KeyValuePair<string, string>> otherValues = null)
+        internal Task<TResult> post<TResult>(string requestUri, NameValueCollection param)
+            where TResult : CommonResult, new()
         {
-            var args = new Dictionary<string, string>();
-            args["ak"] = ak;
-            args["service_id"] = service_id;
+            return post<TResult>(requestUri, new NameValueCollectionYingyanParam(param));
+        }
 
-            if (otherValues != null && otherValues.Count() > 0)
-            {
-                foreach (var kv in otherValues)
-                    args[kv.Key] = kv.Value;
-            }
-            return args;
+        /// <summary>
+        /// GET 操作
+        /// </summary>
+        /// <typeparam name="TResult">返回对象</typeparam>
+        /// <param name="uri">基本地址</param>
+        /// <param name="requestUri">方法</param>
+        /// <param name="param">参数</param>
+        /// <returns></returns>
+        internal async Task<TResult> post<TResult>(string requestUri, IYingyanParam param = null)
+        where TResult : CommonResult, new()
+        {
+            var nv = getNameValueCollection();
+            if (param != null)
+                nv = param.FillArgs(nv);
+
+            var content = new FormUrlEncodedContent(nv.AllKeys.SelectMany(nv.GetValues, (k, v) => new KeyValuePair<string, string>(k, v)));
+
+            var response = await client.PostAsync(requestUri, content);
+            if (response.IsSuccessStatusCode)
+                return await response.Content.JsonReadAsAsync<TResult>();
+            var r = new TResult();
+            r.status = StatusCodeEnums.error999;
+            r.message = $"http 请求错误：StatusCode={response.StatusCode}, ReasonPhrase={response.ReasonPhrase}";
+            return r;
         }
 
         /// <summary>

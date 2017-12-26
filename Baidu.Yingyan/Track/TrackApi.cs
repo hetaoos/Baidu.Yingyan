@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Threading.Tasks;
 
 namespace Baidu.Yingyan.Track
@@ -12,7 +10,7 @@ namespace Baidu.Yingyan.Track
     public partial class TrackApi
     {
         private YingyanApi framework;
-        private Uri url = new Uri(YingyanApi.url + "track/");
+        private const string url = "track/";
 
         public TrackApi(YingyanApi framework)
         {
@@ -28,7 +26,7 @@ namespace Baidu.Yingyan.Track
         /// <returns></returns>
         public async Task<CommonResult> addpoint(TrackPoint point)
         {
-            var args = framework.getArgs(point?.columns.ToDictionary(o => o.Key, o => o.Value?.ToString()));
+            var args = framework.getNameValueCollection(point?.columns.ToDictionary(o => o.Key, o => o.Value?.ToString()));
             args["entity_name"] = point.entity_name;
             args["latitude"] = point.latitude.ToString();
             args["longitude"] = point.longitude.ToString();
@@ -44,8 +42,8 @@ namespace Baidu.Yingyan.Track
                 args["radius"] = point.radius.ToString();
             if (string.IsNullOrWhiteSpace(point.object_name) == false)
                 args["object_name"] = point.object_name;
-            var content = new FormUrlEncodedContent(args);
-            return await YingyanApi.post<CommonResult>(url, "addpoint", content, YingyanApi.getDefaultHttpError<CommonResult>());
+
+            return await framework.post<CommonResult>(url + "addpoint", args);
         }
 
         /// <summary>
@@ -56,11 +54,11 @@ namespace Baidu.Yingyan.Track
         /// <returns></returns>
         public async Task<BatchAddPointResult> addpoints(TrackPoint[] points)
         {
-            var args = framework.getArgs();
+            var args = framework.getNameValueCollection();
             if (points?.Any() == true)
                 args["point_list"] = Newtonsoft.Json.JsonConvert.SerializeObject(points);
-            var content = new FormUrlEncodedContent(args);
-            return await YingyanApi.post<BatchAddPointResult>(url, "addpoints", content, YingyanApi.getDefaultHttpError<BatchAddPointResult>());
+
+            return await framework.post<BatchAddPointResult>(url + "addpoints", args);
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Baidu.Yingyan
@@ -32,6 +29,5 @@ namespace Baidu.Yingyan
                          .Select(
                              key => string.Join("&", nameValuePairs.GetValues(key).Select(val => string.Format("{0}={1}", HttpUtility.UrlEncode(key), HttpUtility.UrlEncode(val ?? string.Empty))))));
         }
-
     }
 }

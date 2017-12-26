@@ -3,14 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Baidu.Yingyan.Converters
 {
     public class ArrayConverter<T> : JsonConverter
     {
         private static Type type = typeof(T);
+
         public override bool CanConvert(Type objectType)
         {
             return true;
@@ -26,7 +25,6 @@ namespace Baidu.Yingyan.Converters
                     return arr.ToList();
                 else
                     return arr;
-
             }
             return null;
         }

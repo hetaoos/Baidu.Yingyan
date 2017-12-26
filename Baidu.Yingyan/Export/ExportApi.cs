@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Baidu.Yingyan.Export
 {
@@ -10,7 +9,7 @@ namespace Baidu.Yingyan.Export
     public partial class ExportApi
     {
         private YingyanApi framework;
-        private Uri url = new Uri(YingyanApi.url + "export/");
+        private const string url = "export/";
 
         public ExportApi(YingyanApi framework)
         {
@@ -24,7 +23,7 @@ namespace Baidu.Yingyan.Export
         /// <returns></returns>
         public Task<ExportCreatJobResult> createjob(ExportCreatJobParam param)
         {
-            return framework.get<ExportCreatJobResult>(url, "createjob", param);
+            return framework.get<ExportCreatJobResult>(url + "createjob", param);
         }
 
         /// <summary>
@@ -34,7 +33,7 @@ namespace Baidu.Yingyan.Export
         /// <returns></returns>
         public Task<CommonResult> deletejob(ExportDeleteJobParam param)
         {
-            return framework.get<CommonResult>(url, "deletejob", param);
+            return framework.get<CommonResult>(url + "deletejob", param);
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace Baidu.Yingyan.Export
         /// <returns></returns>
         public Task<ExportGetJobResult> getjob(ExportGetJobParam param)
         {
-            return framework.get<ExportGetJobResult>(url, "getjob", param);
+            return framework.get<ExportGetJobResult>(url + "getjob", param);
         }
     }
 }

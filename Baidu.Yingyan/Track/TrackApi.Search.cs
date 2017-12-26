@@ -15,7 +15,7 @@ namespace Baidu.Yingyan.Track
         /// <returns></returns>
         public Task<TrackHistoryGetLatestPointResult> getlatestpoint(TrackHistoryGetLatestPointParam param)
         {
-            return framework.get<TrackHistoryGetLatestPointResult>(url, "getlatestpoint", param);
+            return framework.get<TrackHistoryGetLatestPointResult>(url + "getlatestpoint", param);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Baidu.Yingyan.Track
         /// <returns></returns>
         public Task<TrackHistoryGetDistanceResult> getdistance(TrackHistoryGetDistanceParam param)
         {
-            return framework.get<TrackHistoryGetDistanceResult>(url, "getdistance", param);
+            return framework.get<TrackHistoryGetDistanceResult>(url + "getdistance", param);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Baidu.Yingyan.Track
         /// <returns></returns>
         public Task<TrackHistoryGetTrackResult> gettrack(TrackHistoryGetTrackParam param)
         {
-            return framework.get<TrackHistoryGetTrackResult>(url, "gettrack", param);
+            return framework.get<TrackHistoryGetTrackResult>(url + "gettrack", param);
         }
     }
 }

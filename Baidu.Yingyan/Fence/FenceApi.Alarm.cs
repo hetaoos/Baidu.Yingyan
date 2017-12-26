@@ -11,7 +11,7 @@ namespace Baidu.Yingyan.Fence
         /// <returns></returns>
         public Task<FenceQueryStatusResult> querystatus(FenceQueryStatusParam param)
         {
-            return framework.get<FenceQueryStatusResult>(url, "querystatus", param);
+            return framework.get<FenceQueryStatusResult>(url + "querystatus", param);
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace Baidu.Yingyan.Fence
         /// <returns></returns>
         public Task<FenceAlarmHistoryQueryResult> historyalarm(FenceHistoryAlarmParam param)
         {
-            return framework.get<FenceAlarmHistoryQueryResult>(url, "historyalarm", param);
+            return framework.get<FenceAlarmHistoryQueryResult>(url + "historyalarm", param);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace Baidu.Yingyan.Fence
         /// <returns></returns>
         public Task<FenceBatcHistoryAlarmResult> batchhistoryalarm(FenceBatcHistoryAlarmParam param)
         {
-            return framework.get<FenceBatcHistoryAlarmResult>(url, "batchhistoryalarm", param);
+            return framework.get<FenceBatcHistoryAlarmResult>(url + "batchhistoryalarm", param);
         }
     }
 }

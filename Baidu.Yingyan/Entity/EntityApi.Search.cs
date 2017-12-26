@@ -15,7 +15,7 @@ namespace Baidu.Yingyan.Entity
         /// <returns></returns>
         public Task<EntityListReault> search(EntitySearchParam param)
         {
-            return framework.get<EntityListReault>(url, "search", param);
+            return framework.get<EntityListReault>(url + "search", param);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Baidu.Yingyan.Entity
         /// <returns></returns>
         public Task<EntityListReault> boundsearch(EntityBoundSearchParam param)
         {
-            return framework.get<EntityListReault>(url, "boundsearch", param);
+            return framework.get<EntityListReault>(url + "boundsearch", param);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Baidu.Yingyan.Entity
         /// <returns></returns>
         public Task<EntityListReault> aroundsearch(EntityAroundSearchParam param)
         {
-            return framework.get<EntityListReault>(url, "aroundsearch", param);
+            return framework.get<EntityListReault>(url + "aroundsearch", param);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Baidu.Yingyan.Entity
         /// <returns></returns>
         public Task<EntityListReault> polygonsearch(EntityPolygonSearchParam param)
         {
-            return framework.get<EntityListReault>(url, "polygonsearch", param);
+            return framework.get<EntityListReault>(url + "polygonsearch", param);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Baidu.Yingyan.Entity
         /// <returns></returns>
         public Task<EntityDistrictSearchReault> districtsearch(EntityDistrictSearchParam param)
         {
-            return framework.get<EntityDistrictSearchReault>(url, "districtsearch", param);
+            return framework.get<EntityDistrictSearchReault>(url + "districtsearch", param);
         }
     }
 }

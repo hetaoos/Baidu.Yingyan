@@ -3,8 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Baidu.Yingyan.Converters
 {
@@ -38,18 +36,18 @@ namespace Baidu.Yingyan.Converters
                 else
                     return arr;
             }
-         
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if (value != null )
+            if (value != null)
             {
                 if (value is LocationPoint)
                 {
                     var v = value as LocationPoint;
                     serializer.Serialize(writer, LocationPointToString(v));
-                }else
+                }
+                else
                 {
                     string s = null;
                     if (value is IEnumerable<LocationPoint>)
@@ -62,6 +60,7 @@ namespace Baidu.Yingyan.Converters
                 }
             }
         }
+
         private string LocationPointToString(LocationPoint p)
         {
             return string.Format("{0},{1}", p.longitude, p.latitude);

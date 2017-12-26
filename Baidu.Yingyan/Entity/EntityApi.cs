@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Baidu.Yingyan.Entity
@@ -12,7 +10,7 @@ namespace Baidu.Yingyan.Entity
     public partial class EntityApi
     {
         private YingyanApi framework;
-        private Uri url = new Uri(YingyanApi.url + "entity/");
+        private const string url = "entity/";
 
         public EntityApi(YingyanApi framework)
         {
@@ -28,12 +26,11 @@ namespace Baidu.Yingyan.Entity
         /// <returns></returns>
         public Task<CommonResult> add(string entity_name, string entity_desc = null, Dictionary<string, string> columns = null)
         {
-            var args = framework.getArgs(columns);
+            var args = framework.getNameValueCollection(columns);
             args["entity_name"] = entity_name;
             args["entity_desc"] = entity_desc;
-            var content = new FormUrlEncodedContent(args);
 
-            return YingyanApi.post<CommonResult>(url, "add", content, YingyanApi.getDefaultHttpError<CommonResult>());
+            return framework.post<CommonResult>(url + "add", args);
         }
 
         /// <summary>
@@ -45,11 +42,10 @@ namespace Baidu.Yingyan.Entity
         /// <returns></returns>
         public Task<CommonResult> update(string entity_name, string entity_desc = null, Dictionary<string, string> columns = null)
         {
-            var args = framework.getArgs(columns);
+            var args = framework.getNameValueCollection(columns);
             args["entity_name"] = entity_name;
             args["entity_desc"] = entity_desc;
-            var content = new FormUrlEncodedContent(args);
-            return YingyanApi.post<CommonResult>(url, "update", content, YingyanApi.getDefaultHttpError<CommonResult>());
+            return framework.post<CommonResult>(url + "update", args);
         }
 
         /// <summary>
@@ -59,10 +55,10 @@ namespace Baidu.Yingyan.Entity
         /// <returns></returns>
         public Task<CommonResult> delete(string entity_name)
         {
-            var args = framework.getArgs();
+            var args = framework.getNameValueCollection();
             args["entity_name"] = entity_name;
-            var content = new FormUrlEncodedContent(args);
-            return YingyanApi.post<CommonResult>(url, "delete", content, YingyanApi.getDefaultHttpError<CommonResult>());
+
+            return framework.post<CommonResult>(url + "delete", args);
         }
 
         /// <summary>
@@ -72,7 +68,7 @@ namespace Baidu.Yingyan.Entity
         /// <returns></returns>
         public Task<EntityListReault> list(EntityListParam param = null)
         {
-            return framework.get<EntityListReault>(url, "list", param);
+            return framework.get<EntityListReault>(url + "list", param);
         }
     }
 }

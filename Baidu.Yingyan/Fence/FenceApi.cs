@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Baidu.Yingyan.Fence
 {
@@ -9,7 +8,7 @@ namespace Baidu.Yingyan.Fence
     public partial class FenceApi
     {
         private YingyanApi framework;
-        private Uri url = new Uri(YingyanApi.url + "fence/");
+        private const string url = "fence/";
 
         public FenceApi(YingyanApi framework)
         {
@@ -23,7 +22,7 @@ namespace Baidu.Yingyan.Fence
         /// <returns></returns>
         public Task<FenceCreateFenceResult> createcirclefence(FenceCreateCircleFenceParam param)
         {
-            return framework.post<FenceCreateFenceResult>(url, "createcirclefence", param);
+            return framework.post<FenceCreateFenceResult>(url + "createcirclefence", param);
         }
 
         /// <summary>
@@ -33,7 +32,7 @@ namespace Baidu.Yingyan.Fence
         /// <returns></returns>
         public Task<FenceCreateFenceResult> createpolygonfence(FenceCreatePolygonFenceParam param)
         {
-            return framework.post<FenceCreateFenceResult>(url, "createpolygonfence", param);
+            return framework.post<FenceCreateFenceResult>(url + "createpolygonfence", param);
         }
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace Baidu.Yingyan.Fence
         /// <returns></returns>
         public Task<FenceCreateFenceResult> createpolylinefence(FenceCreatePolylineFenceParam param)
         {
-            return framework.post<FenceCreateFenceResult>(url, "createpolylinefence", param);
+            return framework.post<FenceCreateFenceResult>(url + "createpolylinefence", param);
         }
 
         /// <summary>
@@ -53,7 +52,7 @@ namespace Baidu.Yingyan.Fence
         /// <returns></returns>
         public Task<FenceCreateDistrictFenceResult> createdistrictfence(FenceCreateDistrictFenceParam param)
         {
-            return framework.post<FenceCreateDistrictFenceResult>(url, "createdistrictfence", param);
+            return framework.post<FenceCreateDistrictFenceResult>(url + "createdistrictfence", param);
         }
 
         /// <summary>
@@ -63,7 +62,7 @@ namespace Baidu.Yingyan.Fence
         /// <returns></returns>
         public Task<FenceCreateFenceResult> updatecirclefence(FenceCreateCircleFenceParam param)
         {
-            return framework.post<FenceCreateFenceResult>(url, "updatecirclefence", param);
+            return framework.post<FenceCreateFenceResult>(url + "updatecirclefence", param);
         }
 
         /// <summary>
@@ -73,7 +72,7 @@ namespace Baidu.Yingyan.Fence
         /// <returns></returns>
         public Task<FenceCreateFenceResult> updatepolygonfence(FenceCreatePolygonFenceParam param)
         {
-            return framework.post<FenceCreateFenceResult>(url, "updatepolygonfence", param);
+            return framework.post<FenceCreateFenceResult>(url + "updatepolygonfence", param);
         }
 
         /// <summary>
@@ -83,7 +82,7 @@ namespace Baidu.Yingyan.Fence
         /// <returns></returns>
         public Task<FenceCreateFenceResult> updatepolylinefence(FenceCreatePolylineFenceParam param)
         {
-            return framework.post<FenceCreateFenceResult>(url, "updatepolylinefence", param);
+            return framework.post<FenceCreateFenceResult>(url + "updatepolylinefence", param);
         }
 
         /// <summary>
@@ -93,7 +92,7 @@ namespace Baidu.Yingyan.Fence
         /// <returns></returns>
         public Task<FenceCreateDistrictFenceResult> updatedistrictfence(FenceCreateDistrictFenceParam param)
         {
-            return framework.post<FenceCreateDistrictFenceResult>(url, "updatedistrictfence", param);
+            return framework.post<FenceCreateDistrictFenceResult>(url + "updatedistrictfence", param);
         }
 
         /// <summary>
@@ -103,7 +102,7 @@ namespace Baidu.Yingyan.Fence
         /// <returns></returns>
         public Task<FenceDeleteFenceResult> delete(FenceDeleteFenceParam param)
         {
-            return framework.post<FenceDeleteFenceResult>(url, "delete", param);
+            return framework.post<FenceDeleteFenceResult>(url + "delete", param);
         }
 
         /// <summary>
@@ -113,7 +112,7 @@ namespace Baidu.Yingyan.Fence
         /// <returns></returns>
         public Task<FenceListFenceResult> delete(FenceListFenceParam param)
         {
-            return framework.post<FenceListFenceResult>(url, "list", param);
+            return framework.post<FenceListFenceResult>(url + "list", param);
         }
     }
 }

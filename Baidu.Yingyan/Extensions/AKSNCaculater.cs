@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace Baidu.Yingyan.Extensions
@@ -47,7 +46,6 @@ namespace Baidu.Yingyan.Extensions
 
         private static string HttpBuildQuery(IDictionary<string, string> querystring_arrays)
         {
-
             StringBuilder sb = new StringBuilder();
             foreach (var item in querystring_arrays)
             {

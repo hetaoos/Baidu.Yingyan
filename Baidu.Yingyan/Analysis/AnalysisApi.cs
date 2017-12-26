@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Baidu.Yingyan.Analysis
 {
@@ -10,7 +9,7 @@ namespace Baidu.Yingyan.Analysis
     public partial class AnalysisApi
     {
         private YingyanApi framework;
-        private Uri url = new Uri(YingyanApi.url + "analysis/");
+        private const string url = "analysis/";
 
         public AnalysisApi(YingyanApi framework)
         {
@@ -24,7 +23,7 @@ namespace Baidu.Yingyan.Analysis
         /// <returns></returns>
         public Task<TrackAnalysisStayPointResult> staypoint(TrackAnalysisStayPointParam param)
         {
-            return framework.get<TrackAnalysisStayPointResult>(url, "staypoint", param);
+            return framework.get<TrackAnalysisStayPointResult>(url + "staypoint", param);
         }
 
         /// <summary>
@@ -34,7 +33,7 @@ namespace Baidu.Yingyan.Analysis
         /// <returns></returns>
         public Task<TrackAnalysisDrivingBehaviorResult> drivingbehaviour(TrackAnalysisDrivingBehaviorParam param)
         {
-            return framework.get<TrackAnalysisDrivingBehaviorResult>(url, "drivingbehaviour", param);
+            return framework.get<TrackAnalysisDrivingBehaviorResult>(url + "drivingbehaviour", param);
         }
     }
 }
