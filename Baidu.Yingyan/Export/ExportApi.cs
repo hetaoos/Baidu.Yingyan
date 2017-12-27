@@ -23,7 +23,7 @@ namespace Baidu.Yingyan.Export
         /// <returns></returns>
         public Task<ExportCreatJobResult> createjob(ExportCreatJobParam param)
         {
-            return framework.get<ExportCreatJobResult>(url + "createjob", param);
+            return framework.post<ExportCreatJobResult>(url + "createjob", param);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Baidu.Yingyan.Export
         /// <returns></returns>
         public Task<CommonResult> deletejob(ExportDeleteJobParam param)
         {
-            return framework.get<CommonResult>(url + "deletejob", param);
+            return framework.post<CommonResult>(url + "deletejob", param);
         }
 
         /// <summary>

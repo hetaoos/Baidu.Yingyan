@@ -17,7 +17,7 @@ namespace Baidu.Yingyan.Analysis
         }
 
         /// <summary>
-        /// 	停留点分析
+        /// 停留点分析
         /// </summary>
         /// <param name="param">参数</param>
         /// <returns></returns>
