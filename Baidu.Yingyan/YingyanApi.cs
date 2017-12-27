@@ -56,7 +56,7 @@ namespace Baidu.Yingyan
         /// <summary>
         /// 接口地址
         /// </summary>
-        public const string url = "http://yingyan.baidu.com/api/v3/";
+        public const string url = "https://yingyan.baidu.com/api/v3/";
 
         private HttpClient client;
 
