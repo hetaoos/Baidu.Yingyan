@@ -46,7 +46,7 @@ namespace Baidu.Yingyan.Fence
     /// <summary>
     /// 围栏报警点
     /// </summary>
-    /// <seealso cref="Baidu.Yingyan.Track.LocationPointWithTime" />
+    /// <seealso cref="Baidu.Yingyan.LocationPointWithTime" />
     public class FenceAlarmPoint : LocationPointWithTime
     {
         /// <summary>

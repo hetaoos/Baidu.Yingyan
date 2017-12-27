@@ -4,6 +4,10 @@ using System;
 
 namespace Baidu.Yingyan.Export
 {
+    /// <summary>
+    /// 导出任务查询结果
+    /// </summary>
+    /// <seealso cref="Baidu.Yingyan.CommonResult" />
     public class ExportGetJobResult : CommonResult
     {
         /// <summary>

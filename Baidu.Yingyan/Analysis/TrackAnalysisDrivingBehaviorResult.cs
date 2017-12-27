@@ -61,15 +61,26 @@
         /// </summary>
         public TrackAnalysisDrivingBehaviorSpeedingPoint[][] speeding { get; set; }
 
+        /// <summary>
+        /// 急加速
+        /// </summary>
         public TrackAnalysisDrivingBehaviorHarshAccelerationPoint[] harsh_acceleration { get; set; }
+
+        /// <summary>
+        /// 急停
+        /// </summary>
         public TrackAnalysisDrivingBehaviorHarshAccelerationPoint[] harsh_breaking { get; set; }
+
+        /// <summary>
+        /// 急转弯记录
+        /// </summary>
         public TrackAnalysisDrivingBehaviorHarshSteeringPoint[] harsh_steering { get; set; }
     }
 
     /// <summary>
     /// 超速记录点
     /// </summary>
-    /// <seealso cref="Baidu.Yingyan.Track.LocationPointWithTime" />
+    /// <seealso cref="Baidu.Yingyan.LocationPointWithTime" />
     public class TrackAnalysisDrivingBehaviorSpeedingPoint : LocationPointWithTime
     {
         /// <summary>
@@ -86,7 +97,7 @@
     /// <summary>
     /// 急转弯记录点
     /// </summary>
-    /// <seealso cref="Baidu.Yingyan.Track.LocationPointWithTime" />
+    /// <seealso cref="Baidu.Yingyan.LocationPointWithTime" />
     public class TrackAnalysisDrivingBehaviorHarshSteeringPoint : LocationPointWithTime
     {
         /// <summary>
@@ -109,7 +120,7 @@
     /// <summary>
     /// 急加速记录点
     /// </summary>
-    /// <seealso cref="Baidu.Yingyan.Track.LocationPointWithTime" />
+    /// <seealso cref="Baidu.Yingyan.LocationPointWithTime" />
     public class TrackAnalysisDrivingBehaviorHarshAccelerationPoint : LocationPointWithTime
     {
         /// <summary>

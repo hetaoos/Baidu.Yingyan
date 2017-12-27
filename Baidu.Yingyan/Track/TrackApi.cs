@@ -14,6 +14,10 @@ namespace Baidu.Yingyan.Track
         private YingyanApi framework;
         private const string url = "track/";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TrackApi"/> class.
+        /// </summary>
+        /// <param name="framework">The framework.</param>
         public TrackApi(YingyanApi framework)
         {
             this.framework = framework;
@@ -24,8 +28,6 @@ namespace Baidu.Yingyan.Track
         /// <summary>
         /// 为一个track添加最新轨迹点。
         /// </summary>
-        /// <param name="entity_name">entity唯一标识</param>
-        /// <param name="columns">开发者自定义字段(可选)</param>
         /// <param name="point">坐标</param>
         /// <returns></returns>
         public async Task<CommonResult> addpoint(TrackPoint point)
@@ -53,8 +55,7 @@ namespace Baidu.Yingyan.Track
         /// <summary>
         /// 对于一个track批量上传轨迹点。按照时间顺序保留最后一个点作为实时点，过程耗时等信息。
         /// </summary>
-        /// <param name="entity_name">entity唯一标识</param>
-        /// <param name="points">坐标，轨迹点总数不超过100个，json 格式。轨迹点字段描述参见 </param>
+        /// <param name="points">坐标，轨迹点总数不超过100个，json 格式。轨迹点字段描述参见</param>
         /// <returns></returns>
         public async Task<BatchAddPointResult> addpoints(TrackPoint[] points)
         {

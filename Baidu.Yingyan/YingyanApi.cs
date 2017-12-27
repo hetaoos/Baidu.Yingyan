@@ -85,7 +85,6 @@ namespace Baidu.Yingyan
         /// GET 操作
         /// </summary>
         /// <typeparam name="TResult">返回对象</typeparam>
-        /// <param name="uri">基本地址</param>
         /// <param name="requestUri">方法</param>
         /// <param name="param">参数</param>
         /// <returns></returns>
@@ -99,7 +98,6 @@ namespace Baidu.Yingyan
         /// GET 操作
         /// </summary>
         /// <typeparam name="TResult">返回对象</typeparam>
-        /// <param name="uri">基本地址</param>
         /// <param name="requestUri">方法</param>
         /// <param name="param">参数</param>
         /// <returns></returns>
@@ -137,7 +135,6 @@ namespace Baidu.Yingyan
         /// GET 操作
         /// </summary>
         /// <typeparam name="TResult">返回对象</typeparam>
-        /// <param name="uri">基本地址</param>
         /// <param name="requestUri">方法</param>
         /// <param name="param">参数</param>
         /// <returns></returns>
@@ -151,7 +148,6 @@ namespace Baidu.Yingyan
         /// GET 操作
         /// </summary>
         /// <typeparam name="TResult">返回对象</typeparam>
-        /// <param name="uri">基本地址</param>
         /// <param name="requestUri">方法</param>
         /// <param name="param">参数</param>
         /// <returns></returns>

@@ -1,5 +1,9 @@
 ﻿namespace Baidu.Yingyan.Fence
 {
+    /// <summary>
+    /// 围栏报警记录查询结果
+    /// </summary>
+    /// <seealso cref="Baidu.Yingyan.CommonResult" />
     public class FenceAlarmHistoryQueryResult : CommonResult
     {
         /// <summary>

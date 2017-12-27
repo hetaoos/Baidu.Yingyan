@@ -44,6 +44,12 @@ namespace Baidu.Yingyan.Track
             return $"{name}={t}";
         }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             var options = new List<string>();

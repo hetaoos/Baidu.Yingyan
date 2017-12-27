@@ -44,6 +44,10 @@ namespace Baidu.Yingyan
         public DateTime loc_time { get; set; }
     }
 
+    /// <summary>
+    /// 包含时间和地址的经纬度
+    /// </summary>
+    /// <seealso cref="Baidu.Yingyan.LocationPointWithTime" />
     public class LocationPointWithAddress : LocationPointWithTime
     {
         /// <summary>

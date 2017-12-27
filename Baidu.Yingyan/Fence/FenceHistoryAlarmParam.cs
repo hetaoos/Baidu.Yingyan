@@ -26,6 +26,13 @@ namespace Baidu.Yingyan.Fence
         /// </summary>
         public CoordTypeEnums coord_type_output { get; set; } = CoordTypeEnums.bd09ll;
 
+        /// <summary>
+        /// 填充参数
+        /// </summary>
+        /// <param name="nv">原有参数</param>
+        /// <returns>
+        /// 填充后的参数
+        /// </returns>
         public override NameValueCollection FillArgs(NameValueCollection nv)
         {
             nv = base.FillArgs(nv);

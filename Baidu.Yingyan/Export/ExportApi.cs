@@ -11,6 +11,10 @@ namespace Baidu.Yingyan.Export
         private YingyanApi framework;
         private const string url = "export/";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExportApi"/> class.
+        /// </summary>
+        /// <param name="framework">The framework.</param>
         public ExportApi(YingyanApi framework)
         {
             this.framework = framework;

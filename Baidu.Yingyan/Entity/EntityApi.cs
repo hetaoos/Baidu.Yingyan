@@ -14,6 +14,10 @@ namespace Baidu.Yingyan.Entity
         private YingyanApi framework;
         private const string url = "entity/";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EntityApi"/> class.
+        /// </summary>
+        /// <param name="framework">The framework.</param>
         public EntityApi(YingyanApi framework)
         {
             this.framework = framework;

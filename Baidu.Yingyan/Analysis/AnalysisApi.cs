@@ -11,6 +11,10 @@ namespace Baidu.Yingyan.Analysis
         private YingyanApi framework;
         private const string url = "analysis/";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AnalysisApi"/> class.
+        /// </summary>
+        /// <param name="framework">The framework.</param>
         public AnalysisApi(YingyanApi framework)
         {
             this.framework = framework;

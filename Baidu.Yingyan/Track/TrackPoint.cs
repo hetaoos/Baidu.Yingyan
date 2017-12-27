@@ -2,6 +2,10 @@
 
 namespace Baidu.Yingyan.Track
 {
+    /// <summary>
+    /// 轨迹点
+    /// </summary>
+    /// <seealso cref="Baidu.Yingyan.Entity.EntityLocationPoint" />
     public class TrackPoint : EntityLocationPoint
     {
         /// <summary>

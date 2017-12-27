@@ -13,7 +13,7 @@ namespace Baidu.Yingyan.Entity
         /// loc_time：entity 最新定位时间
         /// entity_name：entity 唯一标识
         /// entity_desc：entity描述信息
-        /// <custom-key>：开发者自定义的 entity 属性字段
+        /// custom-key：开发者自定义的 entity 属性字段
         /// </summary>
         public string sortby { get; set; }
 

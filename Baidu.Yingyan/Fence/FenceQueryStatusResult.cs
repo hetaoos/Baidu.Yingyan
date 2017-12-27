@@ -1,5 +1,9 @@
 ﻿namespace Baidu.Yingyan.Fence
 {
+    /// <summary>
+    /// 围栏状态查询
+    /// </summary>
+    /// <seealso cref="Baidu.Yingyan.CommonResult" />
     public class FenceQueryStatusResult : CommonResult
     {
         /// <summary>

@@ -17,6 +17,10 @@ namespace Baidu.Yingyan.Fence
         private YingyanApi framework;
         private const string url = "fence/";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FenceApi"/> class.
+        /// </summary>
+        /// <param name="framework">The framework.</param>
         public FenceApi(YingyanApi framework)
         {
             this.framework = framework;
