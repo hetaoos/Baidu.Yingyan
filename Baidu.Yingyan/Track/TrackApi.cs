@@ -30,7 +30,7 @@ namespace Baidu.Yingyan.Track
         /// <returns></returns>
         public async Task<CommonResult> addpoint(TrackPoint point)
         {
-            var args = framework.getNameValueCollection(point?.columns.ToDictionary(o => o.Key, o => o.Value?.ToString()));
+            var args = framework.getNameValueCollection(point?.columns?.ToDictionary(o => o.Key, o => o.Value?.ToString()));
             args["entity_name"] = point.entity_name;
             args["latitude"] = point.latitude.ToString();
             args["longitude"] = point.longitude.ToString();
@@ -65,7 +65,7 @@ namespace Baidu.Yingyan.Track
             return await framework.post<BatchAddPointResult>(url + "addpoints", args);
         }
 
-        #endregion 为 entity 上传轨迹点，支持为一个 entity上传一个或多个轨迹点，也支持为多个 entity 上传多个轨迹点。
+        #endregion 上传轨迹点
 
         #region 轨迹纠偏
 
@@ -99,6 +99,6 @@ namespace Baidu.Yingyan.Track
             return framework.get<TrackHistoryGetTrackResult>(url + "gettrack", param);
         }
 
-        #endregion 轨迹纠偏类接口为开发者提供轨迹去噪、抽稀、绑路功能，包括实时位置纠偏、轨迹纠偏、里程计算功能。
+        #endregion 轨迹纠偏
     }
 }

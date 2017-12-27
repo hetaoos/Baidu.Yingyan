@@ -21,7 +21,9 @@ namespace Baidu.Yingyan.Fence
         {
             this.framework = framework;
         }
+
         #region 围栏管理类
+
         /// <summary>
         /// 创建圆形围栏
         /// </summary>
@@ -121,9 +123,11 @@ namespace Baidu.Yingyan.Fence
         {
             return framework.post<FenceListFenceResult>(url + "list", param);
         }
-        #endregion
+
+        #endregion 围栏管理类
 
         #region 地理围栏报警
+
         /// <summary>
         /// 查询监控对象在围栏内或外
         /// </summary>
@@ -153,6 +157,7 @@ namespace Baidu.Yingyan.Fence
         {
             return framework.get<FenceBatcHistoryAlarmResult>(url + "batchhistoryalarm", param);
         }
-        #endregion
+
+        #endregion 地理围栏报警
     }
 }

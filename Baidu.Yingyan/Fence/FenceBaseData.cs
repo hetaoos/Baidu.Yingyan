@@ -80,7 +80,6 @@ namespace Baidu.Yingyan.Fence
         }
     }
 
-
     /// <summary>
     /// 围栏形状
     /// </summary>
