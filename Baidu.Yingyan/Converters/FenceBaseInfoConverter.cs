@@ -29,7 +29,7 @@ namespace Baidu.Yingyan.Converters
 
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(FenceBaseInfo);
+            return objectType == typeof(FenceBaseData);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Baidu.Yingyan.Converters
 
             var t = jsonObject["shape"].Value<string>();
             FenceShapeEnums type = FenceShapeEnums.circle;
-            FenceBaseInfo value = null;
+            FenceBaseData value = null;
             Enum.TryParse(t, true, out type);
 
             switch (type)

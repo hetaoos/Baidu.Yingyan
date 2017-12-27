@@ -1,4 +1,8 @@
-﻿namespace Baidu.Yingyan
+﻿using Baidu.Yingyan.Converters;
+using Newtonsoft.Json;
+using System;
+
+namespace Baidu.Yingyan
 {
     /// <summary>
     /// 坐标点
@@ -25,5 +29,26 @@
         {
             return string.Format("lat={0}, lng={1}", latitude, longitude);
         }
+    }
+
+    /// <summary>
+    /// 包含时间的经纬度
+    /// </summary>
+    /// <seealso cref="Baidu.Yingyan.LocationPoint" />
+    public class LocationPointWithTime : LocationPoint
+    {
+        /// <summary>
+        /// 定位时的设备时间
+        /// </summary>
+        [JsonConverter(typeof(UnixTicksConverter))]
+        public DateTime loc_time { get; set; }
+    }
+
+    public class LocationPointWithAddress : LocationPointWithTime
+    {
+        /// <summary>
+        /// 点地址
+        /// </summary>
+        public string address { get; set; }
     }
 }

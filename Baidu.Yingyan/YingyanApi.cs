@@ -29,19 +29,14 @@ namespace Baidu.Yingyan
         public string service_id { get; private set; }
 
         /// <summary>
-        /// 终端管理
+        /// 终端管理/实时位置搜索
         /// </summary>
         public EntityApi entity { get; private set; }
 
         /// <summary>
-        /// 轨迹管理
+        /// 轨迹上传/轨迹查询和纠偏
         /// </summary>
         public TrackApi track { get; private set; }
-
-        /// <summary>
-        /// 地理围栏
-        /// </summary>
-        public FenceApi fence { get; private set; }
 
         /// <summary>
         /// 轨迹分析
@@ -49,7 +44,12 @@ namespace Baidu.Yingyan
         public AnalysisApi analysis { get; private set; }
 
         /// <summary>
-        /// 批量导出
+        /// 地理围栏管理/报警
+        /// </summary>
+        public FenceApi fence { get; private set; }
+
+        /// <summary>
+        /// 批量导出轨迹
         /// </summary>
         public ExportApi export { get; private set; }
 

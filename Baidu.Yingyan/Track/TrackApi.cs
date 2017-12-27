@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 namespace Baidu.Yingyan.Track
 {
     /// <summary>
-    /// 轨迹上传
+    /// 为 entity 上传轨迹点，支持为一个 entity上传一个或多个轨迹点，也支持为多个 entity 上传多个轨迹点。
+    /// 轨迹纠偏类接口为开发者提供轨迹去噪、抽稀、绑路功能，包括实时位置纠偏、轨迹纠偏、里程计算功能。
     /// <a href="http://lbsyun.baidu.com/index.php?title=yingyan/api/v3/trackupload">轨迹上传</a>
+    /// <a href="http://lbsyun.baidu.com/index.php?title=yingyan/api/v3/trackprocess">轨迹查询和纠偏</a>
     /// </summary>
     public partial class TrackApi
     {
@@ -16,6 +18,8 @@ namespace Baidu.Yingyan.Track
         {
             this.framework = framework;
         }
+
+        #region 上传轨迹点
 
         /// <summary>
         /// 为一个track添加最新轨迹点。
@@ -60,5 +64,41 @@ namespace Baidu.Yingyan.Track
 
             return await framework.post<BatchAddPointResult>(url + "addpoints", args);
         }
+
+        #endregion 为 entity 上传轨迹点，支持为一个 entity上传一个或多个轨迹点，也支持为多个 entity 上传多个轨迹点。
+
+        #region 轨迹纠偏
+
+        /// <summary>
+        /// 查询某 entity 的实时位置，支持纠偏
+        /// </summary>
+        /// <param name="param">参数</param>
+        /// <returns></returns>
+        public Task<TrackHistoryGetLatestPointResult> getlatestpoint(TrackHistoryGetLatestPointParam param)
+        {
+            return framework.get<TrackHistoryGetLatestPointResult>(url + "getlatestpoint", param);
+        }
+
+        /// <summary>
+        /// 查询某 entity 一段时间内的轨迹里程，支持纠偏
+        /// </summary>
+        /// <param name="param">参数</param>
+        /// <returns></returns>
+        public Task<TrackHistoryGetDistanceResult> getdistance(TrackHistoryGetDistanceParam param)
+        {
+            return framework.get<TrackHistoryGetDistanceResult>(url + "getdistance", param);
+        }
+
+        /// <summary>
+        /// 查询某 entity 一段时间内的轨迹点，支持纠偏
+        /// </summary>
+        /// <param name="param">参数</param>
+        /// <returns></returns>
+        public Task<TrackHistoryGetTrackResult> gettrack(TrackHistoryGetTrackParam param)
+        {
+            return framework.get<TrackHistoryGetTrackResult>(url + "gettrack", param);
+        }
+
+        #endregion 轨迹纠偏类接口为开发者提供轨迹去噪、抽稀、绑路功能，包括实时位置纠偏、轨迹纠偏、里程计算功能。
     }
 }
