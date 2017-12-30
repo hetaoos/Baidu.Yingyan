@@ -47,6 +47,12 @@ namespace Baidu.Yingyan
         error1 = 1,
 
         /// <summary>
+        /// http method错误
+        /// </summary>
+        [Description("http method错误")]
+        error3 = 3,
+
+        /// <summary>
         /// 上传内容超过8M
         /// </summary>
         [Description("上传内容超过8M")]
@@ -171,6 +177,84 @@ namespace Baidu.Yingyan
         /// </summary>
         [Description("当前并发量已经超过约定并发配额，并且服务总并发量也已经超过设定的总并发配额，限制访问")]
         error402 = 402,
+
+        /// <summary>
+        /// 指定 entity 不存在
+        /// </summary>
+        [Description("指定 entity 不存在")]
+        error3003 = 3003,
+
+        /// <summary>
+        /// entity_name已存在
+        /// </summary>
+        [Description("entity_name已存在")]
+        error3005 = 3005,
+
+        /// <summary>
+        /// 查询时间段内的轨迹点过多，无法进行纠偏，请缩短查询时间
+        /// </summary>
+        [Description("查询时间段内的轨迹点过多，无法进行纠偏，请缩短查询时间")]
+        error3006 = 3006,
+
+        /// <summary>
+        /// 数据解析失败，数据中包含非utf8编码字符
+        /// </summary>
+        [Description("数据解析失败，数据中包含非utf8编码字符")]
+        error3007 = 3007,
+
+        /// <summary>
+        /// loc_time 不可晚于当前服务端时间10分钟以上，即不支持上传未来的轨迹点
+        /// </summary>
+        [Description("loc_time 不可晚于当前服务端时间10分钟以上，即不支持上传未来的轨迹点")]
+        error3100 = 3100,
+
+        /// <summary>
+        /// 上传轨迹点数量太大
+        /// </summary>
+        [Description("上传轨迹点数量太大")]
+        error3101 = 3101,
+
+        /// <summary>
+        /// 起止时间差不可超过24小时
+        /// </summary>
+        [Description("起止时间差不可超过24小时")]
+        error3200 = 3200,
+
+        /// <summary>
+        /// 结束时间不可小于开始时间
+        /// </summary>
+        [Description("结束时间不可小于开始时间")]
+        error3201 = 3201,
+
+        /// <summary>
+        /// 监控对象的围栏个数超出范围，最多100个
+        /// </summary>
+        [Description("监控对象的围栏个数超出范围，最多100个")]
+        error5101 = 5101,
+
+        /// <summary>
+        /// 监控对象不存在
+        /// </summary>
+        [Description("监控对象不存在")]
+        error5102 = 5102,
+
+        /// <summary>
+        /// 监控对象上没有fence_id为XXX的围栏
+        /// </summary>
+        [Description("监控对象上没有fence_id为XXX的围栏")]
+        error5103 = 5103,
+
+        /// <summary>
+        /// 指定fence_id不存在
+        /// </summary>
+        [Description("指定fence_id不存在")]
+        error5104 = 5104,
+
+        /// <summary>
+        /// 查询时间段内的轨迹点过多，无法进行轨迹分析，请缩短查询时间
+        /// </summary>
+        [Description("查询时间段内的轨迹点过多，无法进行轨迹分析，请缩短查询时间")]
+        error9001 = 9001,
 
         /// <summary>
         /// HTTP请求错误
