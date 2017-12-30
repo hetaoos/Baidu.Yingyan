@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 
 namespace Baidu.Yingyan.Fence
 {
@@ -58,25 +58,25 @@ namespace Baidu.Yingyan.Fence
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">原有参数</param>
+        /// <param name="args">原有参数</param>
         /// <returns>
         /// 填充后的参数
         /// </returns>
-        public virtual NameValueCollection FillArgs(NameValueCollection nv)
+        public virtual Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            if (nv == null)
-                nv = new NameValueCollection();
+            if (args == null)
+                args = new Dictionary<string, string>();
             if (fence_id > 0)
-                nv["fence_id"] = fence_id.ToString();
+                args["fence_id"] = fence_id.ToString();
             if (string.IsNullOrWhiteSpace(fence_name) == false)
-                nv["fence_name"] = fence_name;
+                args["fence_name"] = fence_name;
             if (string.IsNullOrWhiteSpace(monitored_person))
                 monitored_person = "#allentity";
-            nv["monitored_person"] = monitored_person;
-            nv["coord_type"] = coord_type.ToString();
+            args["monitored_person"] = monitored_person;
+            args["coord_type"] = coord_type.ToString();
             if (denoise > 0)
-                nv["denoise"] = denoise.ToString();
-            return nv;
+                args["denoise"] = denoise.ToString();
+            return args;
         }
     }
 

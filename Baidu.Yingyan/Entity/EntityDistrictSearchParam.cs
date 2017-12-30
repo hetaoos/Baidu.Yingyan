@@ -1,4 +1,4 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Baidu.Yingyan.Entity
@@ -23,13 +23,13 @@ namespace Baidu.Yingyan.Entity
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">The nv.</param>
+        /// <param name="args">The args.</param>
         /// <returns></returns>
-        public override NameValueCollection FillArgs(NameValueCollection nv)
+        public override Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            nv = base.FillArgs(nv);
-            nv.Add("return_type", return_type.ToString());
-            return nv;
+            args = base.FillArgs(args);
+            args["return_type"] = return_type.ToString();
+            return args;
         }
     }
 

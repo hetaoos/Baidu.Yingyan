@@ -1,4 +1,4 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 
 namespace Baidu.Yingyan.Fence
 {
@@ -15,16 +15,16 @@ namespace Baidu.Yingyan.Fence
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">原有参数</param>
+        /// <param name="args">原有参数</param>
         /// <returns>
         /// 填充后的参数
         /// </returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public override NameValueCollection FillArgs(NameValueCollection nv)
+        public override Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            nv = base.FillArgs(nv);
-            nv["coord_type_output"] = coord_type_output.ToString();
-            return nv;
+            args = base.FillArgs(args);
+            args["coord_type_output"] = coord_type_output.ToString();
+            return args;
         }
     }
 }

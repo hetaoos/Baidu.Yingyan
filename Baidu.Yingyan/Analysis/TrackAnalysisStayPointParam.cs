@@ -1,6 +1,6 @@
 ﻿using Baidu.Yingyan.Track;
 using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 
 namespace Baidu.Yingyan.Analysis
 {
@@ -36,20 +36,20 @@ namespace Baidu.Yingyan.Analysis
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">The nv.</param>
+        /// <param name="args">The args.</param>
         /// <returns></returns>
-        public override NameValueCollection FillArgs(NameValueCollection nv)
+        public override Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            nv = base.FillArgs(nv);
-            nv.Add("start_time", start_time.ToUtcTicks().ToString());
-            nv.Add("end_time", end_time.ToUtcTicks().ToString());
-            nv.Add("stay_time", stay_time.ToString());
+            args = base.FillArgs(args);
+            args["start_time"] = start_time.ToUtcTicks().ToString();
+            args["end_time"] = end_time.ToUtcTicks().ToString();
+            args["stay_time"] = stay_time.ToString();
             if (stay_radius < 1)
                 stay_radius = 1;
             else if (stay_radius > 500)
                 stay_radius = 500;
-            nv.Add("stay_radius", stay_radius.ToString());
-            return nv;
+            args["stay_radius"] = stay_radius.ToString();
+            return args;
         }
     }
 }

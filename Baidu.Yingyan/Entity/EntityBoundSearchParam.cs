@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 
 namespace Baidu.Yingyan.Entity
 {
@@ -26,15 +26,15 @@ namespace Baidu.Yingyan.Entity
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">The nv.</param>
+        /// <param name="args">The args.</param>
         /// <returns></returns>
-        public override NameValueCollection FillArgs(NameValueCollection nv)
+        public override Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            nv = base.FillArgs(nv);
-            nv.Add("coord_type_input", coord_type_input.ToString());
-            nv.Add("bounds", $"{Math.Min(a?.latitude ?? 0, b?.latitude ?? 0)},{Math.Min(a?.longitude ?? 0, b?.longitude ?? 0)};{Math.Max(a?.latitude ?? 0, b?.latitude ?? 0)},{Math.Max(a?.longitude ?? 0, b?.longitude ?? 0)}");
+            args = base.FillArgs(args);
+            args["coord_type_input"] = coord_type_input.ToString();
+            args["bounds"] = $"{Math.Min(a?.latitude ?? 0, b?.latitude ?? 0)},{Math.Min(a?.longitude ?? 0, b?.longitude ?? 0)};{Math.Max(a?.latitude ?? 0, b?.latitude ?? 0)},{Math.Max(a?.longitude ?? 0, b?.longitude ?? 0)}";
 
-            return nv;
+            return args;
         }
     }
 }

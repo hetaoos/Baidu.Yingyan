@@ -1,4 +1,4 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 
 namespace Baidu.Yingyan.Track
 {
@@ -25,19 +25,19 @@ namespace Baidu.Yingyan.Track
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">The nv.</param>
+        /// <param name="args">The args.</param>
         /// <returns></returns>
-        public virtual NameValueCollection FillArgs(NameValueCollection nv)
+        public virtual Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            if (nv == null)
-                nv = new NameValueCollection();
-            nv.Add("entity_name", entity_name);
+            if (args == null)
+                args = new Dictionary<string, string>();
+            args["entity_name"] = entity_name;
             var op = process_option?.ToString();
             if (string.IsNullOrWhiteSpace(op) == false)
-                nv.Add("process_option", op);
+                args["process_option"] = op;
 
-            nv.Add("coord_type_output", coord_type_output.ToString());
-            return nv;
+            args["coord_type_output"] = coord_type_output.ToString();
+            return args;
         }
     }
 }

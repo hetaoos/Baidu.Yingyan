@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 
 namespace Baidu.Yingyan.Track
 {
@@ -33,16 +33,16 @@ namespace Baidu.Yingyan.Track
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">The nv.</param>
+        /// <param name="args">The args.</param>
         /// <returns></returns>
-        public override NameValueCollection FillArgs(NameValueCollection nv)
+        public override Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            nv = base.FillArgs(nv);
-            nv.Add("start_time", start_time.ToUtcTicks().ToString());
-            nv.Add("end_time", end_time.ToUtcTicks().ToString());
-            nv.Add("is_processed", is_processed ? "1" : "0");
-            nv.Add("supplement_mode", supplement_mode.ToString());
-            return nv;
+            args = base.FillArgs(args);
+            args["start_time"] = start_time.ToUtcTicks().ToString();
+            args["end_time"] = end_time.ToUtcTicks().ToString();
+            args["is_processed"] = is_processed ? "1" : "0";
+            args["supplement_mode"] = supplement_mode.ToString();
+            return args;
         }
     }
 

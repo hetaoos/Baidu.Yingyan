@@ -1,4 +1,4 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 
 namespace Baidu.Yingyan
 {
@@ -10,34 +10,34 @@ namespace Baidu.Yingyan
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">原有参数</param>
+        /// <param name="args">原有参数</param>
         /// <returns>填充后的参数</returns>
-        NameValueCollection FillArgs(NameValueCollection nv);
+        Dictionary<string, string> FillArgs(Dictionary<string, string> args);
     }
 
     /// <summary>
-    /// NameValueCollection 请求参数
+    /// 请求参数
     /// </summary>
     /// <seealso cref="Baidu.Yingyan.IYingyanParam" />
-    public class NameValueCollectionYingyanParam : IYingyanParam
+    public class DictionaryYingyanParam : IYingyanParam
     {
         /// <summary>
         /// 值列表
         /// </summary>
-        public NameValueCollection values { get; set; }
+        public Dictionary<string, string> values { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NameValueCollectionYingyanParam"/> class.
+        /// Initializes a new instance of the <see cref="DictionaryYingyanParam"/> class.
         /// </summary>
-        public NameValueCollectionYingyanParam()
+        public DictionaryYingyanParam()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NameValueCollectionYingyanParam"/> class.
+        /// Initializes a new instance of the <see cref="DictionaryYingyanParam"/> class.
         /// </summary>
         /// <param name="values">The values.</param>
-        public NameValueCollectionYingyanParam(NameValueCollection values)
+        public DictionaryYingyanParam(Dictionary<string, string> values)
         {
             this.values = values;
         }
@@ -45,17 +45,20 @@ namespace Baidu.Yingyan
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">原有参数</param>
+        /// <param name="args">原有参数</param>
         /// <returns>
         /// 填充后的参数
         /// </returns>
-        public NameValueCollection FillArgs(NameValueCollection nv)
+        public Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            if (nv == null)
-                nv = new NameValueCollection();
+            if (args == null)
+                args = new Dictionary<string, string>();
             if (values?.Count > 0)
-                nv.Add(values);
-            return nv;
+            {
+                foreach (var v in values)
+                    args[v.Key] = v.Value;
+            }
+            return args;
         }
 
         /// <summary>
@@ -63,9 +66,9 @@ namespace Baidu.Yingyan
         /// </summary>
         /// <param name="item">对象</param>
 
-        public static implicit operator NameValueCollectionYingyanParam(NameValueCollection item)
+        public static implicit operator DictionaryYingyanParam(Dictionary<string, string> item)
         {
-            return new NameValueCollectionYingyanParam(item);
+            return new DictionaryYingyanParam(item);
         }
     }
 }

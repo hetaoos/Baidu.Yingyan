@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 
 namespace Baidu.Yingyan.Fence
 {
@@ -39,23 +39,23 @@ namespace Baidu.Yingyan.Fence
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">原有参数</param>
+        /// <param name="args">原有参数</param>
         /// <returns>
         /// 填充后的参数
         /// </returns>
-        public virtual NameValueCollection FillArgs(NameValueCollection nv)
+        public virtual Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            if (nv == null)
-                nv = new NameValueCollection();
+            if (args == null)
+                args = new Dictionary<string, string>();
 
             if (start_time != null)
-                nv["start_time"] = start_time.Value.ToUtcTicks().ToString();
+                args["start_time"] = start_time.Value.ToUtcTicks().ToString();
             if (end_time != null)
-                nv["end_time"] = end_time.Value.ToUtcTicks().ToString();
-            nv["coord_type_output"] = coord_type_output.ToString();
-            nv["page_index"] = page_index.ToString();
-            nv["page_size"] = page_size.ToString();
-            return nv;
+                args["end_time"] = end_time.Value.ToUtcTicks().ToString();
+            args["coord_type_output"] = coord_type_output.ToString();
+            args["page_index"] = page_index.ToString();
+            args["page_size"] = page_size.ToString();
+            return args;
         }
     }
 }

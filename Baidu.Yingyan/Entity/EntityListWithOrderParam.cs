@@ -1,4 +1,4 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 
 namespace Baidu.Yingyan.Entity
 {
@@ -25,19 +25,19 @@ namespace Baidu.Yingyan.Entity
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">The nv.</param>
+        /// <param name="args">The args.</param>
         /// <returns></returns>
-        public override NameValueCollection FillArgs(NameValueCollection nv)
+        public override Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            nv = base.FillArgs(nv);
+            args = base.FillArgs(args);
 
             if (string.IsNullOrWhiteSpace(sortby) == false)
             {
                 var aa = asc ? "asc" : "desc";
-                nv.Add("sortby", $"{sortby.Trim()}:{aa}");
+                args["sortby"] = $"{sortby.Trim()}:{aa}";
             }
 
-            return nv;
+            return args;
         }
     }
 }

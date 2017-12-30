@@ -1,4 +1,4 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Baidu.Yingyan.Fence
@@ -22,18 +22,18 @@ namespace Baidu.Yingyan.Fence
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">原有参数</param>
+        /// <param name="args">原有参数</param>
         /// <returns>
         /// 填充后的参数
         /// </returns>
-        public virtual NameValueCollection FillArgs(NameValueCollection nv)
+        public virtual Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            if (nv == null)
-                nv = new NameValueCollection();
+            if (args == null)
+                args = new Dictionary<string, string>();
             if (fence_ids?.Any() == true)
-                nv["fence_ids"] = string.Join(",", fence_ids);
-            nv["monitored_person"] = monitored_person;
-            return nv;
+                args["fence_ids"] = string.Join(",", fence_ids);
+            args["monitored_person"] = monitored_person;
+            return args;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Baidu.Yingyan.Fence
@@ -29,20 +29,20 @@ namespace Baidu.Yingyan.Fence
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">原有参数</param>
+        /// <param name="args">原有参数</param>
         /// <returns>
         /// 填充后的参数
         /// </returns>
-        public override NameValueCollection FillArgs(NameValueCollection nv)
+        public override Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            nv = base.FillArgs(nv);
+            args = base.FillArgs(args);
             if (vertexes?.Any() == true)
             {
                 var vs = string.Join(";", vertexes.Select(o => $"{o?.latitude},{o?.longitude}"));
-                nv["vertexes"] = vs;
+                args["vertexes"] = vs;
             }
-            nv["offset"] = offset.ToString();
-            return nv;
+            args["offset"] = offset.ToString();
+            return args;
         }
     }
 }

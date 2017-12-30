@@ -5,7 +5,6 @@ using Baidu.Yingyan.Fence;
 using Baidu.Yingyan.Track;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -27,6 +26,11 @@ namespace Baidu.Yingyan
         /// service的ID，service 的唯一标识。
         /// </summary>
         public string service_id { get; private set; }
+
+        /// <summary>
+        /// sn签名的验证方式的 Security Key
+        /// </summary>
+        public string sk { get; private set; }
 
         /// <summary>
         /// 终端管理/实时位置搜索
@@ -56,7 +60,7 @@ namespace Baidu.Yingyan
         /// <summary>
         /// 接口地址
         /// </summary>
-        public const string url = "https://yingyan.baidu.com/api/v3/";
+        public const string url = "http://yingyan.baidu.com/api/v3/";
 
         private HttpClient client;
 
@@ -65,10 +69,12 @@ namespace Baidu.Yingyan
         /// </summary>
         /// <param name="ak">用户的ak</param>
         /// <param name="service_id">service的ID，service 的唯一标识</param>
-        public YingyanApi(string ak, string service_id)
+        /// <param name="sk">sn签名的验证方式的 Security Key</param>
+        public YingyanApi(string ak, string service_id, string sk = null)
         {
             this.ak = ak;
             this.service_id = service_id;
+            this.sk = sk;
             client = new HttpClient();
             entity = new EntityApi(this);
             track = new TrackApi(this);
@@ -88,10 +94,10 @@ namespace Baidu.Yingyan
         /// <param name="requestUri">方法</param>
         /// <param name="param">参数</param>
         /// <returns></returns>
-        internal Task<TResult> get<TResult>(string requestUri, NameValueCollection param)
+        internal Task<TResult> get<TResult>(string requestUri, Dictionary<string, string> param)
             where TResult : CommonResult, new()
         {
-            return get<TResult>(requestUri, new NameValueCollectionYingyanParam(param));
+            return get<TResult>(requestUri, new DictionaryYingyanParam(param));
         }
 
         /// <summary>
@@ -104,13 +110,15 @@ namespace Baidu.Yingyan
         internal async Task<TResult> get<TResult>(string requestUri, IYingyanParam param = null)
         where TResult : CommonResult, new()
         {
-            var nv = getNameValueCollection();
+            var args = getDefaultArgs();
             if (param != null)
-                nv = param.FillArgs(nv);
+                args = param.FillArgs(args);
 
-            if (nv?.Count > 0)
+            calcSN(requestUri, args, false);
+
+            if (args?.Count > 0)
             {
-                var q = nv.ToUriQuery();
+                var q = args.ToUriQuery();
                 if (string.IsNullOrEmpty(requestUri))
                     requestUri = "?" + q;
                 else if (requestUri.IndexOf('?') >= 0)
@@ -138,10 +146,10 @@ namespace Baidu.Yingyan
         /// <param name="requestUri">方法</param>
         /// <param name="param">参数</param>
         /// <returns></returns>
-        internal Task<TResult> post<TResult>(string requestUri, NameValueCollection param)
+        internal Task<TResult> post<TResult>(string requestUri, Dictionary<string, string> param)
             where TResult : CommonResult, new()
         {
-            return post<TResult>(requestUri, new NameValueCollectionYingyanParam(param));
+            return post<TResult>(requestUri, new DictionaryYingyanParam(param));
         }
 
         /// <summary>
@@ -154,11 +162,13 @@ namespace Baidu.Yingyan
         internal async Task<TResult> post<TResult>(string requestUri, IYingyanParam param = null)
         where TResult : CommonResult, new()
         {
-            var nv = getNameValueCollection();
+            var args = getDefaultArgs();
             if (param != null)
-                nv = param.FillArgs(nv);
+                args = param.FillArgs(args);
 
-            var content = new FormUrlEncodedContent(nv.AllKeys.SelectMany(nv.GetValues, (k, v) => new KeyValuePair<string, string>(k, v)));
+            calcSN(requestUri, args, true);
+
+            var content = new FormUrlEncodedContent(args);
 
             var response = await client.PostAsync(requestUri, content);
             if (response.IsSuccessStatusCode)
@@ -174,17 +184,41 @@ namespace Baidu.Yingyan
         /// </summary>
         /// <param name="otherValues">The other values.</param>
         /// <returns></returns>
-        internal NameValueCollection getNameValueCollection(IEnumerable<KeyValuePair<string, string>> otherValues = null)
+        internal Dictionary<string, string> getDefaultArgs(Dictionary<string, string> otherValues = null)
         {
-            var args = new NameValueCollection();
-            args["ak"] = ak;
-            args["service_id"] = service_id;
-            if (otherValues != null && otherValues.Count() > 0)
+            var args = new Dictionary<string, string>()
+            {
+                ["ak"] = ak,
+                ["service_id"] = service_id
+            };
+
+            if (otherValues?.Any() == true)
             {
                 foreach (var kv in otherValues)
-                    args.Add(kv.Key, kv.Value);
+                    args[kv.Key] = kv.Value;
             }
             return args;
+        }
+
+        /// <summary>
+        /// 计算sn
+        /// </summary>
+        /// <param name="requestUri">特殊的请求地址</param>
+        /// <param name="args">请求参数</param>
+        /// <param name="post">是Post或者是Get方式</param>
+        private void calcSN(string requestUri, IDictionary<string, string> args, bool post = false)
+        {
+            if (string.IsNullOrWhiteSpace(sk))
+                return;
+
+            var uri = new Uri(new Uri(url), requestUri);
+            var requestPath = uri.AbsolutePath;
+
+            //POST计算sn时，参数要排序
+            var dic = post ? new SortedDictionary<string, string>(args) : args;
+
+            var sn = BaiduSNCaculater.CaculateSN(sk, requestPath, dic);
+            args["sn"] = sn;
         }
     }
 }

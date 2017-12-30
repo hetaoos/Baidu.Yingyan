@@ -32,7 +32,7 @@ namespace Baidu.Yingyan.Track
         /// <returns></returns>
         public async Task<CommonResult> addpoint(TrackPoint point)
         {
-            var args = framework.getNameValueCollection(point?.columns?.ToDictionary(o => o.Key, o => o.Value?.ToString()));
+            var args = framework.getDefaultArgs(point?.columns?.ToDictionary(o => o.Key, o => o.Value?.ToString()));
             args["entity_name"] = point.entity_name;
             args["latitude"] = point.latitude.ToString();
             args["longitude"] = point.longitude.ToString();
@@ -59,7 +59,7 @@ namespace Baidu.Yingyan.Track
         /// <returns></returns>
         public async Task<BatchAddPointResult> addpoints(TrackPoint[] points)
         {
-            var args = framework.getNameValueCollection();
+            var args = framework.getDefaultArgs();
             if (points?.Any() == true)
                 args["point_list"] = Newtonsoft.Json.JsonConvert.SerializeObject(points);
 

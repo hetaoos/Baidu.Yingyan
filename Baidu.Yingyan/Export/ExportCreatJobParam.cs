@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 
 namespace Baidu.Yingyan.Export
 {
@@ -8,11 +8,6 @@ namespace Baidu.Yingyan.Export
     /// </summary>
     public class ExportCreatJobParam : IYingyanParam
     {
-        /// <summary>
-        /// service的ID，service 的唯一标识。
-        /// </summary>
-        public int service_id { get; set; }
-
         /// <summary>
         /// 开始时间
         /// </summary>
@@ -32,17 +27,16 @@ namespace Baidu.Yingyan.Export
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">The nv.</param>
+        /// <param name="args">The args.</param>
         /// <returns></returns>
-        public virtual NameValueCollection FillArgs(NameValueCollection nv)
+        public virtual Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            if (nv == null)
-                nv = new NameValueCollection();
-            nv.Add("service_id", service_id.ToString());
-            nv.Add("start_time", start_time.ToUtcTicks().ToString());
-            nv.Add("end_time", end_time.ToUtcTicks().ToString());
-            nv.Add("coord_type_output", coord_type_output.ToString());
-            return nv;
+            if (args == null)
+                args = new Dictionary<string, string>();
+            args["start_time"] = start_time.ToUtcTicks().ToString();
+            args["end_time"] = end_time.ToUtcTicks().ToString();
+            args["coord_type_output"] = coord_type_output.ToString();
+            return args;
         }
     }
 }

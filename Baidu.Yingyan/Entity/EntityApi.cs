@@ -34,7 +34,7 @@ namespace Baidu.Yingyan.Entity
         /// <returns></returns>
         public Task<CommonResult> add(string entity_name, string entity_desc = null, Dictionary<string, string> columns = null)
         {
-            var args = framework.getNameValueCollection(columns);
+            var args = framework.getDefaultArgs(columns);
             args["entity_name"] = entity_name;
             args["entity_desc"] = entity_desc;
 
@@ -50,7 +50,7 @@ namespace Baidu.Yingyan.Entity
         /// <returns></returns>
         public Task<CommonResult> update(string entity_name, string entity_desc = null, Dictionary<string, string> columns = null)
         {
-            var args = framework.getNameValueCollection(columns);
+            var args = framework.getDefaultArgs(columns);
             args["entity_name"] = entity_name;
             args["entity_desc"] = entity_desc;
             return framework.post<CommonResult>(url + "update", args);
@@ -63,7 +63,7 @@ namespace Baidu.Yingyan.Entity
         /// <returns></returns>
         public Task<CommonResult> delete(string entity_name)
         {
-            var args = framework.getNameValueCollection();
+            var args = framework.getDefaultArgs();
             args["entity_name"] = entity_name;
 
             return framework.post<CommonResult>(url + "delete", args);

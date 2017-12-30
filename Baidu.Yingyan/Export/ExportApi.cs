@@ -45,9 +45,9 @@ namespace Baidu.Yingyan.Export
         /// </summary>
         /// <param name="param">参数</param>
         /// <returns></returns>
-        public Task<ExportGetJobResult> getjob(ExportGetJobParam param)
+        public Task<ExportGetJobResult> getjob()
         {
-            return framework.get<ExportGetJobResult>(url + "getjob", param);
+            return framework.get<ExportGetJobResult>(url + "getjob");
         }
     }
 }

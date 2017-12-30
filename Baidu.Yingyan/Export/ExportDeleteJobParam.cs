@@ -1,4 +1,4 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 
 namespace Baidu.Yingyan.Export
 {
@@ -8,11 +8,6 @@ namespace Baidu.Yingyan.Export
     public class ExportDeleteJobParam : IYingyanParam
     {
         /// <summary>
-        /// service的ID，service 的唯一标识。
-        /// </summary>
-        public int service_id { get; set; }
-
-        /// <summary>
         /// 任务id
         /// </summary>
         public int job_id { get; set; }
@@ -20,15 +15,14 @@ namespace Baidu.Yingyan.Export
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">The nv.</param>
+        /// <param name="args">The args.</param>
         /// <returns></returns>
-        public virtual NameValueCollection FillArgs(NameValueCollection nv)
+        public virtual Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            if (nv == null)
-                nv = new NameValueCollection();
-            nv.Add("service_id", service_id.ToString());
-            nv.Add("job_id", job_id.ToString());
-            return nv;
+            if (args == null)
+                args = new Dictionary<string, string>();
+            args["job_id"] = job_id.ToString();
+            return args;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 
 namespace Baidu.Yingyan.Analysis
 {
@@ -35,20 +35,20 @@ namespace Baidu.Yingyan.Analysis
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">The nv.</param>
+        /// <param name="args">The args.</param>
         /// <returns></returns>
-        public override NameValueCollection FillArgs(NameValueCollection nv)
+        public override Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            nv = base.FillArgs(nv);
+            args = base.FillArgs(args);
             if (speeding_threshold > 0)
-                nv.Add("speeding_threshold", speeding_threshold.ToString());
+                args["speeding_threshold"] = speeding_threshold.ToString();
             if (harsh_acceleration_threshold > 0)
-                nv.Add("harsh_acceleration_threshold", harsh_acceleration_threshold.ToString());
+                args["harsh_acceleration_threshold"] = harsh_acceleration_threshold.ToString();
             if (harsh_breaking_threshold < 0)
-                nv.Add("harsh_breaking_threshold", harsh_breaking_threshold.ToString());
+                args["harsh_breaking_threshold"] = harsh_breaking_threshold.ToString();
             if (harsh_steering_threshold > 0)
-                nv.Add("harsh_steering_threshold", harsh_steering_threshold.ToString());
-            return nv;
+                args["harsh_steering_threshold"] = harsh_steering_threshold.ToString();
+            return args;
         }
     }
 }

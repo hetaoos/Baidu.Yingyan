@@ -1,4 +1,4 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 
 namespace Baidu.Yingyan.Track
 {
@@ -26,15 +26,15 @@ namespace Baidu.Yingyan.Track
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">The nv.</param>
+        /// <param name="args">The args.</param>
         /// <returns></returns>
-        public override NameValueCollection FillArgs(NameValueCollection nv)
+        public override Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            nv = base.FillArgs(nv);
-            nv.Add("sort_type", asc ? "asc" : "desc");
-            nv.Add("page_index", page_index.ToString());
-            nv.Add("page_size", page_size.ToString());
-            return nv;
+            args = base.FillArgs(args);
+            args["sort_type"] = asc ? "asc" : "desc";
+            args["page_index"] = page_index.ToString();
+            args["page_size"] = page_size.ToString();
+            return args;
         }
     }
 }

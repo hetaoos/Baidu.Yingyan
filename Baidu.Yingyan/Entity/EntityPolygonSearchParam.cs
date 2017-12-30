@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 
 namespace Baidu.Yingyan.Entity
@@ -23,17 +22,17 @@ namespace Baidu.Yingyan.Entity
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">The nv.</param>
+        /// <param name="args">The args.</param>
         /// <returns></returns>
-        public override NameValueCollection FillArgs(NameValueCollection nv)
+        public override Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            nv = base.FillArgs(nv);
-            nv.Add("coord_type_input", coord_type_input.ToString());
+            args = base.FillArgs(args);
+            args["coord_type_input"] = coord_type_input.ToString();
             if (vertexes?.Any() == true)
             {
-                nv.Add("vertexes", string.Join(";", vertexes.Select(o => $"{o?.latitude ?? 0},{o?.longitude ?? 0}")));
+                args["vertexes"] = string.Join(";", vertexes.Select(o => $"{o?.latitude ?? 0},{o?.longitude ?? 0}"));
             }
-            return nv;
+            return args;
         }
     }
 }

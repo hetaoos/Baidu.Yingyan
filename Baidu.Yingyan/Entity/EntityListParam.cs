@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 
 namespace Baidu.Yingyan.Entity
@@ -74,21 +73,21 @@ namespace Baidu.Yingyan.Entity
         /// <summary>
         /// 填充参数
         /// </summary>
-        /// <param name="nv">The nv.</param>
+        /// <param name="args">The args.</param>
         /// <returns></returns>
-        public virtual NameValueCollection FillArgs(NameValueCollection nv)
+        public virtual Dictionary<string, string> FillArgs(Dictionary<string, string> args)
         {
-            if (nv == null)
-                nv = new NameValueCollection();
+            if (args == null)
+                args = new Dictionary<string, string>();
             var filter = GetFilter();
             if (string.IsNullOrWhiteSpace(filter) == false)
-                nv.Add("filter", filter);
+                args["filter"] = filter;
 
-            nv.Add("coord_type_output", coord_type_output.ToString());
-            nv.Add("page_index", page_index.ToString());
-            nv.Add("page_size", page_size.ToString());
+            args["coord_type_output"] = coord_type_output.ToString();
+            args["page_index"] = page_index.ToString();
+            args["page_size"] = page_size.ToString();
 
-            return nv;
+            return args;
         }
     }
 }
