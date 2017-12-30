@@ -13,9 +13,9 @@
 
 ## NuGet
 
-[https://www.nuget.org/packages/Baidu.Yingyan/1.1.0-alpha](https://www.nuget.org/packages/Baidu.Yingyan/1.1.0-alpha)
+[https://www.nuget.org/packages/Baidu.Yingyan/1.1.0-alpha2](https://www.nuget.org/packages/Baidu.Yingyan/1.1.0-alpha2)
 ```powershell
-PM> Install-Package Baidu.Yingyan -Version 1.1.0-alpha
+PM> Install-Package Baidu.Yingyan -Version 1.1.0-alpha2
 ```
 
 ## 使用
@@ -47,6 +47,10 @@ var r3 = await api.track.gettrack(new TrackHistoryGetTrackParam() {
 ```
 
 ## 最近更新
-2017/12/27
-- 基于 [鹰眼 Web服务 API v3.0](http://lbsyun.baidu.com/index.php?title=yingyan/api/v3/all) 全新实现，与上一个版本不兼容，需要适配。
-- 目前还未测试完全。
+- 2017/12/30
+  - 增加sn验证，官方的[sn计算算法](https://lbsyun.baidu.com/index.php?title=webapi/appendix)的示例代码是个坑！
+  - 将参数集合类型从 NameValueCollection 改为 Dictionary
+
+- 2017/12/27
+  - 基于 [鹰眼 Web服务 API v3.0](http://lbsyun.baidu.com/index.php?title=yingyan/api/v3/all) 全新实现，与上一个版本不兼容，需要适配。
+  - 目前还未测试完全。
