@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Baidu.Yingyan.Entity
@@ -12,6 +13,7 @@ namespace Baidu.Yingyan.Entity
         /// 中心点经纬度,格式为：纬度,经度
         /// 经纬度顺序为：纬度,经度； 顶点顺序可按顺时针或逆时针排列。 多边形外接矩形面积不超过3000平方公里
         /// </summary>
+        [Required]
         public List<LocationPoint> vertexes { get; set; }
 
         /// <summary>

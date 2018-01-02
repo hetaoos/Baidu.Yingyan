@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Baidu.Yingyan.Entity
 {
@@ -11,11 +12,13 @@ namespace Baidu.Yingyan.Entity
         /// <summary>
         /// 左下角
         /// </summary>
+        [Required]
         public LocationPoint a { get; set; }
 
         /// <summary>
         /// 右上角
         /// </summary>
+        [Required]
         public LocationPoint b { get; set; }
 
         /// <summary>

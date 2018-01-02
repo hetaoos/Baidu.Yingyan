@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Baidu.Yingyan.Export
 {
@@ -33,17 +34,16 @@ namespace Baidu.Yingyan.Export
         /// <summary>
         /// 删除任务
         /// </summary>
-        /// <param name="param">参数</param>
+        /// <param name="job_id">任务id</param>
         /// <returns></returns>
-        public Task<CommonResult> deletejob(ExportDeleteJobParam param)
+        public Task<CommonResult> deletejob(string job_id)
         {
-            return framework.post<CommonResult>(url + "deletejob", param);
+            return framework.post<CommonResult>(url + "deletejob", new Dictionary<string, string> { ["job_id"] = job_id });
         }
 
         /// <summary>
         /// 查询任务，将返回任务状态和文件下载地址
         /// </summary>
-        /// <param name="param">参数</param>
         /// <returns></returns>
         public Task<ExportGetJobResult> getjob()
         {

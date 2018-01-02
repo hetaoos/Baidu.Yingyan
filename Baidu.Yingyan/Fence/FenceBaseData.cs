@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Baidu.Yingyan.Fence
 {
@@ -30,11 +31,13 @@ namespace Baidu.Yingyan.Fence
         /// 示例：monitored_person=张三
         /// 如设置为#allentity（monitored_person=#allentity），则对整个service下的所有entity创建围栏
         /// </summary>
+        [Required]
         public string monitored_person { get; set; }
 
         /// <summary>
         /// 坐标类型
         /// </summary>
+        [Required]
         public CoordTypeEnums coord_type { get; set; } = CoordTypeEnums.bd09ll;
 
         /// <summary>

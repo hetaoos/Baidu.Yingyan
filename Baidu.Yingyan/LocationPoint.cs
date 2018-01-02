@@ -1,6 +1,7 @@
 ﻿using Baidu.Yingyan.Converters;
 using Newtonsoft.Json;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Baidu.Yingyan
 {
@@ -12,11 +13,13 @@ namespace Baidu.Yingyan
         /// <summary>
         /// 纬度
         /// </summary>
+        [Required]
         public double latitude { get; set; }
 
         /// <summary>
         /// 经度
         /// </summary>
+        [Required]
         public double longitude { get; set; }
 
         /// <summary>

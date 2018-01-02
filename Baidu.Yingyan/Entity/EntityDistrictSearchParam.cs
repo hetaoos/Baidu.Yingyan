@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Baidu.Yingyan.Entity
 {
@@ -13,6 +14,7 @@ namespace Baidu.Yingyan.Entity
         /// 支持中国范围内的国家、省、市、区/县名称。请尽量输入完整的行政区层级和名称，保证名称的唯一性。若输入的行政区名称匹配多个行政区，搜索会失败，将会返回匹配的行政区列表。
         /// 关键字示例： 中国 北京市 湖南省长沙市 湖南省长沙市雨花区
         /// </summary>
+        [Required]
         public string keyword { get; set; }
 
         /// <summary>

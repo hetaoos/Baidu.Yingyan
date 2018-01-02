@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Baidu.Yingyan.Export
 {
@@ -11,12 +12,14 @@ namespace Baidu.Yingyan.Export
         /// <summary>
         /// 开始时间
         /// </summary>
+        [Required]
         public DateTime start_time { get; set; }
 
         /// <summary>
         /// 结束时间
         /// 注：结束时间需比当前最新时间小12小时（即只能下载12小时以前的轨迹），且结束时间和起始时间差在24小时之内（即一次只能下载24小时区间内的轨迹）。
         /// </summary>
+        [Required]
         public DateTime end_time { get; set; }
 
         /// <summary>

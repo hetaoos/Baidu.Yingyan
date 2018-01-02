@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Baidu.Yingyan.Track
 {
@@ -10,6 +11,7 @@ namespace Baidu.Yingyan.Track
         /// <summary>
         /// entity唯一标识
         /// </summary>
+        [Required]
         public string entity_name { get; set; }
 
         /// <summary>

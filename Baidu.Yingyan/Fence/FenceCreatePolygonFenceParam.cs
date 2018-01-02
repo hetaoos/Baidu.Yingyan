@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Baidu.Yingyan.Fence
@@ -19,6 +20,7 @@ namespace Baidu.Yingyan.Fence
         /// 顶点顺序可按顺时针或逆时针排列；
         /// 顶点个数在3-100个之间
         /// </summary>
+        [Required]
         public LocationPoint[] vertexes { get; set; }
 
         /// <summary>

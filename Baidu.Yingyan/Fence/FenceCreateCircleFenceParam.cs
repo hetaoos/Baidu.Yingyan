@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Baidu.Yingyan.Fence
 {
@@ -15,12 +16,14 @@ namespace Baidu.Yingyan.Fence
         /// <summary>
         /// 围栏圆心
         /// </summary>
+        [Required]
         public LocationPoint center { get; set; }
 
         /// <summary>
         /// 围栏半径
         /// 单位：米，取值范围(0,5000]
         /// </summary>
+        [Required]
         public double radius { get; set; }
 
         /// <summary>

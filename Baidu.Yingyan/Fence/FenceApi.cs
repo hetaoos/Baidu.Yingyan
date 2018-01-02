@@ -157,9 +157,9 @@ namespace Baidu.Yingyan.Fence
         /// </summary>
         /// <param name="param">参数</param>
         /// <returns></returns>
-        public Task<FenceBatcHistoryAlarmResult> batchhistoryalarm(FenceBatcHistoryAlarmParam param)
+        public Task<FenceBatchHistoryAlarmResult> batchhistoryalarm(FenceBatchHistoryAlarmParam param)
         {
-            return framework.get<FenceBatcHistoryAlarmResult>(url + "batchhistoryalarm", param);
+            return framework.get<FenceBatchHistoryAlarmResult>(url + "batchhistoryalarm", param);
         }
 
         #endregion 地理围栏报警

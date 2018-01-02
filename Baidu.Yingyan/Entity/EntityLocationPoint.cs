@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Baidu.Yingyan.Entity
 {
@@ -19,6 +20,7 @@ namespace Baidu.Yingyan.Entity
         /// 该entity最新定位时间
         /// </summary>
         [JsonConverter(typeof(UnixTicksConverter))]
+        [Required]
         public DateTime loc_time { get; set; }
 
         /// <summary>

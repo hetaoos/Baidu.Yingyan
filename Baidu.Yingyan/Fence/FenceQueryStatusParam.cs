@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Baidu.Yingyan.Fence
@@ -12,6 +13,7 @@ namespace Baidu.Yingyan.Fence
         /// <summary>
         /// 监控对象
         /// </summary>
+        [Required]
         public string monitored_person { get; set; }
 
         /// <summary>

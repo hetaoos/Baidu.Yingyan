@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Baidu.Yingyan.Fence
 {
@@ -18,6 +19,7 @@ namespace Baidu.Yingyan.Fence
         /// 若输入的行政区名称匹配多个行政区，围栏将创建失败。
         /// 示例： 中国 北京市 湖南省长沙市 湖南省长沙市雨花区
         /// </summary>
+        [Required]
         public string keyword { get; set; }
 
         /// <summary>

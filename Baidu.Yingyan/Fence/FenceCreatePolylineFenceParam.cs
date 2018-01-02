@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Baidu.Yingyan.Fence
@@ -18,12 +19,14 @@ namespace Baidu.Yingyan.Fence
         /// 经纬度顺序为：纬度,经度；
         /// 坐标点个数在2-100个之间
         /// </summary>
+        [Required]
         public LocationPoint[] vertexes { get; set; }
 
         /// <summary>
         /// 偏离距离
         /// 偏移距离（若偏离折线距离超过该距离即报警），单位：米   示例：200
         /// </summary>
+        [Required]
         public int offset { get; set; }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using Baidu.Yingyan.Track;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Baidu.Yingyan.Analysis
 {
@@ -13,12 +14,14 @@ namespace Baidu.Yingyan.Analysis
         /// <summary>
         /// 开始时间
         /// </summary>
+        [Required]
         public DateTime start_time { get; set; }
 
         /// <summary>
         /// 结束时间
         /// 结束时间不能大于当前时间，且起止时间区间不超过24小时。为提升响应速度，同时避免轨迹点过多造成请求超时（3s）失败，建议缩短每次请求的时间区间，将一天轨迹拆分成多段进行拼接
         /// </summary>
+        [Required]
         public DateTime end_time { get; set; }
 
         /// <summary>

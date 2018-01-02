@@ -1,4 +1,5 @@
 ﻿using Baidu.Yingyan.Entity;
+using System.ComponentModel.DataAnnotations;
 
 namespace Baidu.Yingyan.Track
 {
@@ -11,11 +12,13 @@ namespace Baidu.Yingyan.Track
         /// <summary>
         /// entity唯一标识
         /// </summary>
+        [Required]
         public string entity_name { get; set; }
 
         /// <summary>
         /// 坐标类型
         /// </summary>
+        [Required]
         public CoordTypeEnums coord_type_input { get; set; } = CoordTypeEnums.bd09ll;
 
         /// <summary>

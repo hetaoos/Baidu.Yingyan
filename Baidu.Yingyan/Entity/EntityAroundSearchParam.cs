@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Baidu.Yingyan.Entity
 {
@@ -10,11 +11,13 @@ namespace Baidu.Yingyan.Entity
         /// <summary>
         /// 	中心点经纬度,格式为：纬度,经度
         /// </summary>
+        [Required]
         public LocationPoint center { get; set; }
 
         /// <summary>
         /// 右上角,单位：米，取值范围[1,5000]
         /// </summary>
+        [Required]
         public int radius { get; set; } = 1000;
 
         /// <summary>
