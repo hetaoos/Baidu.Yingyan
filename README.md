@@ -13,9 +13,9 @@
 
 ## NuGet
 
-[https://www.nuget.org/packages/Baidu.Yingyan/1.1.0-alpha2](https://www.nuget.org/packages/Baidu.Yingyan/1.1.0-alpha2)
+[https://www.nuget.org/packages/Baidu.Yingyan/1.1.0-alpha3](https://www.nuget.org/packages/Baidu.Yingyan/1.1.0-alpha3)
 ```powershell
-PM> Install-Package Baidu.Yingyan -Version 1.1.0-alpha2
+PM> Install-Package Baidu.Yingyan -Version 1.1.0-alpha3
 ```
 
 ## 使用
@@ -47,6 +47,9 @@ var r3 = await api.track.gettrack(new TrackHistoryGetTrackParam() {
 ```
 
 ## 最近更新
+- 2018/03/21
+  - 增加管理围栏监控对象
+  
 - 2017/12/30
   - 增加sn验证，官方的[sn计算算法](https://lbsyun.baidu.com/index.php?title=webapi/appendix)的示例代码是个坑！
   - 将参数集合类型从 NameValueCollection 改为 Dictionary
