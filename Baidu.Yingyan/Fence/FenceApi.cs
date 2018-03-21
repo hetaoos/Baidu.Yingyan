@@ -130,6 +130,40 @@ namespace Baidu.Yingyan.Fence
 
         #endregion 围栏管理类
 
+        #region 管理围栏监控对象
+
+        /// <summary>
+        /// 增加围栏需监控的entity
+        /// </summary>
+        /// <param name="param">参数</param>
+        /// <returns></returns>
+        public Task<CommonResult> addmonitoredperson(FenceMonitoredPersonEditParam param)
+        {
+            return framework.post<CommonResult>(url + "addmonitoredperson", param);
+        }
+
+        /// <summary>
+        /// 删除围栏可去除监控的entity
+        /// </summary>
+        /// <param name="param">参数</param>
+        /// <returns></returns>
+        public Task<CommonResult> deletemonitoredperson(FenceMonitoredPersonEditParam param)
+        {
+            return framework.post<CommonResult>(url + "deletemonitoredperson", param);
+        }
+
+        /// <summary>
+        /// 查询围栏监控的所有entity
+        /// </summary>
+        /// <param name="param">参数</param>
+        /// <returns></returns>
+        public Task<FenceMonitoredPersonQueryResult> listmonitoredperson(FenceMonitoredPersonQueryParam param)
+        {
+            return framework.get<FenceMonitoredPersonQueryResult>(url + "listmonitoredperson", param);
+        }
+
+        #endregion 管理围栏监控对象
+
         #region 地理围栏报警
 
         /// <summary>

@@ -31,7 +31,6 @@ namespace Baidu.Yingyan.Fence
         /// 示例：monitored_person=张三
         /// 如设置为#allentity（monitored_person=#allentity），则对整个service下的所有entity创建围栏
         /// </summary>
-        [Required]
         public string monitored_person { get; set; }
 
         /// <summary>
@@ -73,9 +72,8 @@ namespace Baidu.Yingyan.Fence
                 args["fence_id"] = fence_id.ToString();
             if (string.IsNullOrWhiteSpace(fence_name) == false)
                 args["fence_name"] = fence_name;
-            if (string.IsNullOrWhiteSpace(monitored_person))
-                monitored_person = "#allentity";
-            args["monitored_person"] = monitored_person;
+            if (string.IsNullOrWhiteSpace(monitored_person) == false)
+                args["monitored_person"] = monitored_person;
             args["coord_type"] = coord_type.ToString();
             if (denoise > 0)
                 args["denoise"] = denoise.ToString();
