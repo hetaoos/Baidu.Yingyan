@@ -123,7 +123,7 @@ namespace Baidu.Yingyan.Fence
         /// </summary>
         /// <param name="param">参数</param>
         /// <returns></returns>
-        public Task<FenceListFenceResult> delete(FenceListFenceParam param)
+        public Task<FenceListFenceResult> list(FenceListFenceParam param)
         {
             return framework.post<FenceListFenceResult>(url + "list", param);
         }
