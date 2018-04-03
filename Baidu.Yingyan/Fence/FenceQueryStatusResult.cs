@@ -25,7 +25,7 @@
         /// <summary>
         /// 围栏 id
         /// </summary>
-        public string fence_id { get; set; }
+        public int fence_id { get; set; }
 
         /// <summary>
         /// 状态
