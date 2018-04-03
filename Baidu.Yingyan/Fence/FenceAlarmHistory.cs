@@ -12,7 +12,7 @@ namespace Baidu.Yingyan.Fence
         /// <summary>
         /// 围栏 id，唯一标识符
         /// </summary>
-        public string fence_id { get; set; }
+        public int fence_id { get; set; }
 
         /// <summary>
         /// 围栏的名称
